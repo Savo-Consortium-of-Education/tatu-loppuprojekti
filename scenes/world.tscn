@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d10oai1y54fhw"]
+
+[ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
+[ext_resource type="PackedScene" uid="uid://chrm3aobewxyi" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/Sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
+panorama = ExtResource("1_rwgxs")
+
+[sub_resource type="Sky" id="Sky_nnsk1"]
+sky_material = SubResource("PanoramaSkyMaterial_k0juu")
+
+[sub_resource type="Environment" id="Environment_kwnof"]
+background_mode = 3
+sky = SubResource("Sky_nnsk1")
+
+[node name="World" type="Node2D" unique_id=1789966192]
+script = ExtResource("1_k0juu")
+
+[node name="Hud" parent="." unique_id=1693138881 instance=ExtResource("1_4wyf3")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=118712165]
+environment = SubResource("Environment_kwnof")
+
+[node name="Timer" type="Timer" parent="." unique_id=629375088]
+autostart = true
+
+[node name="Players" type="Node" parent="." unique_id=1442882629]
+
+[node name="Player" parent="Players" unique_id=2123365197 instance=ExtResource("1_nnsk1")]
+
+[node name="Enemies" type="Node" parent="." unique_id=141298119]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=474386151]
+autoscroll = Vector2(5, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1825947716]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_rwgxs")

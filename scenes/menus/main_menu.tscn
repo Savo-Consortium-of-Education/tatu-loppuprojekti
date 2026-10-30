@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://di3yd07843gei"]
+
+[ext_resource type="Script" uid="uid://cwuc7wu15kc5y" path="res://scripts/ui/main_menu.gd" id="1_xqga4"]
+
+[node name="Control" type="Control" unique_id=215008972]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xqga4")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1984872117]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=613722518]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1132412020]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=543879459]
+layout_mode = 2
+text = "Play"
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1158596218]
+layout_mode = 2
+text = "Options"
+
+[node name="Button3" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1200904169]
+layout_mode = 2
+text = "Exit Game"
