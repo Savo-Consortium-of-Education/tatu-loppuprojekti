@@ -1,12 +1,18 @@
 extends Node2D
 
-@onready var timer = $Timer
-@onready var hud = $Hud
+@onready var timer: Timer = $Timer
+@onready var hud: CanvasLayer = $Hud
+
+const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 
 var elapsed_time: int = 0
 var is_paused: bool = false
 
 func _ready() -> void:
+	var player = PLAYER_SCENE.instantiate() as Player
+	player.character_data = GameManager.selected_character
+	add_child(player)
+	
 	timer.timeout.connect(_on_timer_timeout)
 	if multiplayer.is_server():
 		start_game()

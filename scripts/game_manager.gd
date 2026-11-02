@@ -6,7 +6,7 @@ signal player_levelup(player: Player)
 signal score_changed(new_score: int)
 signal game_ended()
 
-var selected_character: Character
+var selected_character: CharacterData
 var score: int = 0
 
 func damage_player(player: Player, damage: int):

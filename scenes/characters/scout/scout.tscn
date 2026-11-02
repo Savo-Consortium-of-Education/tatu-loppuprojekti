@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ctd65qmp6vvnw"]
+
+[ext_resource type="Script" uid="uid://dgyxsvrook277" path="res://scenes/characters/baseCharacter/base_character.gd" id="1_maxyk"]
+[ext_resource type="Resource" uid="uid://dkbiq6hcuwxai" path="res://resources/characters/scout_data.tres" id="2_hkh3p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+
+[node name="Scout" type="CharacterBody2D" unique_id=1366688378]
+script = ExtResource("1_maxyk")
+character_data = ExtResource("2_hkh3p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1729743463]
+shape = SubResource("CircleShape2D_kwnof")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1023800608]

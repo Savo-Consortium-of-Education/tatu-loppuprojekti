@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
-[ext_resource type="PackedScene" uid="uid://chrm3aobewxyi" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/Sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/testEnemy/test_enemy.tscn" id="4_k0juu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("1_rwgxs")
@@ -28,9 +28,9 @@ autostart = true
 
 [node name="Players" type="Node" parent="." unique_id=1442882629]
 
-[node name="Player" parent="Players" unique_id=2123365197 instance=ExtResource("1_nnsk1")]
-
 [node name="Enemies" type="Node" parent="." unique_id=141298119]
+
+[node name="TestEnemy" parent="Enemies" unique_id=941123928 instance=ExtResource("4_k0juu")]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=474386151]
 autoscroll = Vector2(5, 0)

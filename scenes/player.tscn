@@ -1,10 +1,28 @@
 [gd_scene format=3 uid="uid://chrm3aobewxyi"]
 
 [ext_resource type="Script" uid="uid://dvub8j1ok235u" path="res://scripts/player/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://ds0y8mbv35idk" path="res://assets/Player/player.png" id="2_g2els"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
-[node name="Player" type="CharacterBody2D" unique_id=2123365197]
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"boost",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g2els")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=2123365197 groups=["players"]]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1758097516]
@@ -16,6 +34,7 @@ rotation_smoothing_enabled = true
 
 [node name="Visuals" type="Node2D" parent="." unique_id=197805212]
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=1376368352]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1743324801]
+sprite_frames = SubResource("SpriteFrames_kwnof")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
