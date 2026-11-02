@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dcbbdfokwjv3l"]
+
+[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_h4ad6"]
+[ext_resource type="Texture2D" uid="uid://ds0y8mbv35idk" path="res://assets/Player/player.png" id="2_gby4n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+
+[node name="TestEnemy" type="CharacterBody2D" unique_id=941123928]
+script = ExtResource("1_h4ad6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+shape = SubResource("CircleShape2D_kwnof")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
+texture = ExtResource("2_gby4n")
