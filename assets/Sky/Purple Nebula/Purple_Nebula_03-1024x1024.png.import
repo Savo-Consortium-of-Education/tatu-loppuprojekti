@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlqm2p2gbpl7u"
-path="res://.godot/imported/Purple_Nebula_03-1024x1024.png-544049d12c17db500bd0c2d7e60499de.ctex"
+path="res://.godot/imported/Purple_Nebula_03-1024x1024.png-195bcbcd610c70dffc31fcb8179198bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sky/Purple Nebula/Purple_Nebula_03-1024x1024.png"
-dest_files=["res://.godot/imported/Purple_Nebula_03-1024x1024.png-544049d12c17db500bd0c2d7e60499de.ctex"]
+source_file="res://assets/sky/Purple Nebula/Purple_Nebula_03-1024x1024.png"
+dest_files=["res://.godot/imported/Purple_Nebula_03-1024x1024.png-195bcbcd610c70dffc31fcb8179198bd.ctex"]
 
 [params]
 

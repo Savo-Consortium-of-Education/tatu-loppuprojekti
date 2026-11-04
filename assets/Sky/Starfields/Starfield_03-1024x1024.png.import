@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7ujjpf0qasnu"
-path="res://.godot/imported/Starfield_03-1024x1024.png-4e9b29c05f2f25e73b4fca0a701d591a.ctex"
+path="res://.godot/imported/Starfield_03-1024x1024.png-73299de710f74589d12edb944dcdfebd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sky/Starfields/Starfield_03-1024x1024.png"
-dest_files=["res://.godot/imported/Starfield_03-1024x1024.png-4e9b29c05f2f25e73b4fca0a701d591a.ctex"]
+source_file="res://assets/sky/Starfields/Starfield_03-1024x1024.png"
+dest_files=["res://.godot/imported/Starfield_03-1024x1024.png-73299de710f74589d12edb944dcdfebd.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://devjpsmyreegb"
-path="res://.godot/imported/Green_Nebula_07-1024x1024.png-f53967d265c70e57d37b79967070c4ae.ctex"
+path="res://.godot/imported/Green_Nebula_07-1024x1024.png-cb0b0fa484e650bbb08e49084df0df36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sky/Green Nebula/Green_Nebula_07-1024x1024.png"
-dest_files=["res://.godot/imported/Green_Nebula_07-1024x1024.png-f53967d265c70e57d37b79967070c4ae.ctex"]
+source_file="res://assets/sky/Green Nebula/Green_Nebula_07-1024x1024.png"
+dest_files=["res://.godot/imported/Green_Nebula_07-1024x1024.png-cb0b0fa484e650bbb08e49084df0df36.ctex"]
 
 [params]
 

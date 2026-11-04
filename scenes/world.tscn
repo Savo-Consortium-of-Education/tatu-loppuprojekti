@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
-[ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/Sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/testEnemy/test_enemy.tscn" id="4_k0juu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]

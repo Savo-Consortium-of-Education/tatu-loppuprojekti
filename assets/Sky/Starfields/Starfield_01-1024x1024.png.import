@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://durd72l258po5"
-path.s3tc="res://.godot/imported/Starfield_01-1024x1024.png-3873eb8f6a74676c7dbe68a60844c4ce.s3tc.ctex"
+path.s3tc="res://.godot/imported/Starfield_01-1024x1024.png-1997c11a459e9beb2f162c83ae79a253.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Sky/Starfields/Starfield_01-1024x1024.png"
-dest_files=["res://.godot/imported/Starfield_01-1024x1024.png-3873eb8f6a74676c7dbe68a60844c4ce.s3tc.ctex"]
+source_file="res://assets/sky/Starfields/Starfield_01-1024x1024.png"
+dest_files=["res://.godot/imported/Starfield_01-1024x1024.png-1997c11a459e9beb2f162c83ae79a253.s3tc.ctex"]
 
 [params]
 

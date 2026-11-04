@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7chgm7inwbx7"
-path="res://.godot/imported/Skull_Old.png-990bea000e83a45643e4cc1daea6ed2a.ctex"
+uid="uid://bebugkc04u2xf"
+path="res://.godot/imported/asteroid_variant.png-984e748ccf4def1373a327bfa50e126b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Skull/Skull_Old.png"
-dest_files=["res://.godot/imported/Skull_Old.png-990bea000e83a45643e4cc1daea6ed2a.ctex"]
+source_file="res://assets/sprites/environment/asteroid_variant.png"
+dest_files=["res://.godot/imported/asteroid_variant.png-984e748ccf4def1373a327bfa50e126b.ctex"]
 
 [params]
 
