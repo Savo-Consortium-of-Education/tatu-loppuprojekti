@@ -61,4 +61,4 @@ func handle_movement(delta: float) -> void:
 func handle_rotation(delta: float) -> void:
     visuals.rotation = global_position.direction_to(
         get_global_mouse_position()
-    ).angle()
+    ).angle() + GameManager.SPRITE_ROTATION_OFFSET

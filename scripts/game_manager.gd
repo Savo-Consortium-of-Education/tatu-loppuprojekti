@@ -8,6 +8,7 @@ signal player_levelup(player: Player)
 signal score_changed(new_score: int)
 signal game_ended()
 
+const SPRITE_ROTATION_OFFSET := deg_to_rad(90)
 var selected_character: CharacterData
 var score: int = 0
 
