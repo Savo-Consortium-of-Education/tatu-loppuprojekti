@@ -8,10 +8,22 @@ var boost_active: bool = false
 var angular_velocity: float = 0.0
 
 func _physics_process(delta: float) -> void:
-    handle_movement(delta)
-    handle_rotation(delta)
-
+    if is_multiplayer_authority():
+        handle_movement(delta)
+        handle_rotation(delta)
+        handle_shooting()
     move_and_slide()
+
+func handle_shooting() -> void:
+    if not Input.is_action_pressed("shoot"):
+        return
+        
+    var direction = global_position.direction_to(
+        get_global_mouse_position())
+        
+    for weapon in current_weapons:
+        print(weapon)
+        weapon.try_fire(direction)
 
 func handle_movement(delta: float) -> void:
     var direction := Input.get_vector(

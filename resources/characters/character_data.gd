@@ -20,4 +20,4 @@ extends Resource
 @export var acceleration: float = 150.0
 
 @export_group("Weapons")
-@export var default_weapon: PackedScene
+@export var default_weapon: WeaponData
