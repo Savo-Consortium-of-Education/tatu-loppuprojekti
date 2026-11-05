@@ -17,12 +17,8 @@ func _physics_process(delta: float) -> void:
 func handle_shooting() -> void:
     if not Input.is_action_pressed("shoot"):
         return
-        
-    var direction = global_position.direction_to(
-        get_global_mouse_position())
-        
+    var direction = global_position.direction_to(get_global_mouse_position())
     for weapon in current_weapons:
-        print(weapon)
         weapon.try_fire(direction)
 
 func handle_movement(delta: float) -> void:
@@ -43,22 +39,33 @@ func handle_movement(delta: float) -> void:
 
     GameManager.boost_player(self, boost_energy)
             
-    var acceleration_force = acceleration
+    var speed_multiplier := boost_multiplier if boost_active else 1.0
+    var target_speed := max_speed * speed_multiplier
+
+    var acceleration_force := acceleration
     if boost_active:
         acceleration_force *= boost_multiplier
-        
-    velocity += direction * acceleration_force * delta
-    
-    if direction == Vector2.ZERO:
+
+    if direction != Vector2.ZERO:
+        if velocity.dot(direction) < 0.0:
+            acceleration_force *= 3.0
+
+        var target_velocity := direction * target_speed
+        velocity = velocity.move_toward(
+            target_velocity,
+            acceleration_force * delta
+        )
+    else:
         velocity = velocity.move_toward(
             Vector2.ZERO,
             linear_drag * delta
         )
-    velocity = velocity.limit_length(max_speed * (
-        boost_multiplier if boost_active else 1.0
-    ))
     
 func handle_rotation(delta: float) -> void:
     visuals.rotation = global_position.direction_to(
         get_global_mouse_position()
     ).angle() + GameManager.SPRITE_ROTATION_OFFSET
+
+
+func _on_ready() -> void:
+    add_to_group("players")
