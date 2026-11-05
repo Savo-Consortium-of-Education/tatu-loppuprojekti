@@ -7,10 +7,11 @@ class_name Enemy extends CharacterBody2D
 
 @export_group("Projectile")
 @export var shoot_projectiles: bool = false
-@export var projectile_scene: PackedScene
+@export var projectile_scene: PackedScene = preload(
+    "res://scenes/projectiles/bolt.tscn"
+)
 @export var projectile_speed: float = 250.0
 @export var projectile_damage: float = 10.0
-@export var projectile_range: float = 500.0
 @export var projectile_spawner: MultiplayerSpawner
 
 var hp: float
@@ -90,17 +91,22 @@ func shoot_at_player(player: Player) -> void:
         return
     if not can_attack or projectile_spawner == null:
         return
-    if projectile_scene == null:
-        return
         
     can_attack = false
     var direction = global_position.direction_to(player.global_position)
+    var projectile_path := ""
+    if projectile_scene == null:
+        push_error("Enemy projectile_scene is null; using the default bolt")
+    else:
+        projectile_path = projectile_scene.resource_path
         
     projectile_spawner.spawn({
         "position": global_position,
         "direction": direction,
         "speed": projectile_speed,
-        "damage": projectile_damage
+        "damage": projectile_damage,
+        "projectile_path": projectile_path,
+        "shooter_path": get_path()
     })
 
     await get_tree().create_timer(attack_cooldown).timeout

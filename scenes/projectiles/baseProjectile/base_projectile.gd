@@ -3,7 +3,7 @@ class_name Projectile extends Area2D
 @export var direction: Vector2 = Vector2.RIGHT
 @export var speed: float = 600.0
 @export var damage: float = 10.0
-@export var shooter: Character
+@export var shooter: Node2D
 
 func _ready() -> void:
     body_entered.connect(_on_body_entered)

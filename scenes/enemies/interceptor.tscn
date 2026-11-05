@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_leyjb"]
 [ext_resource type="Texture2D" uid="uid://dowi3fdlmbg1m" path="res://assets/sprites/enemies/enemy_interceptor.png" id="2_leyjb"]
-[ext_resource type="PackedScene" path="res://scenes/projectiles/enemy_bolt.tscn" id="2_yghn5"]
+[ext_resource type="PackedScene" uid="uid://quc17hjjergs" path="res://scenes/projectiles/rocket.tscn" id="2_yghn5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 

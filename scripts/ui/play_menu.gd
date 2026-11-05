@@ -19,11 +19,11 @@ func load_characters() -> void:
         if data == null:
             print("no character data")
             continue
+            
         print("loading: ", data.character_name)
         var character_button = SELECT_CHARACTER.instantiate()
         character_button.character_data = data
         character_container.add_child(character_button)
-        
         
 func _on_play_button_pressed() -> void:
     if GameManager.selected_character:
