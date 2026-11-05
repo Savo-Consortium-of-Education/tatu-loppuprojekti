@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var timer: Timer = $Timer
 @onready var hud: CanvasLayer = $Hud
+@onready var enemy_spawner = $EnemySpawner
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 
@@ -26,6 +27,9 @@ func start_game() -> void:
     elapsed_time = 0
     is_paused = false
     
+    enemy_spawner.update_difficulty(elapsed_time)
+    enemy_spawner.start_spawning()
+    
     update_timer.rpc(elapsed_time)
     timer.start()
     
@@ -35,6 +39,7 @@ func _on_timer_timeout() -> void:
         
     elapsed_time += 1
     update_timer.rpc(elapsed_time)
+    enemy_spawner.update_difficulty(elapsed_time)
     
 @rpc("authority", "call_local", "reliable")
 func update_timer(time: int) -> void:
@@ -47,6 +52,7 @@ func pause_game() -> void:
         
     is_paused = true
     timer.stop()
+    enemy_spawner.stop_spawning()
     set_game_paused.rpc(true)
     
 func continue_game() -> void:
@@ -55,6 +61,7 @@ func continue_game() -> void:
         
     is_paused = false
     timer.start()
+    enemy_spawner.start_spawning()
     set_game_paused.rpc(false)
     
 @rpc("authority", "call_local", "reliable")

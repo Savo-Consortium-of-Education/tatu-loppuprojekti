@@ -28,6 +28,7 @@ repeat = 2
 
 [node name="BoostBar" type="Control" unique_id=2042111351]
 layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_iv0kb")
 
 [node name="VFlowContainer" type="VBoxContainer" parent="." unique_id=332722076]

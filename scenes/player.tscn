@@ -26,6 +26,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=2123365197 groups=["players"]]
+z_index = 1
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_3vyb7")
 

@@ -4,8 +4,14 @@ class_name Enemy extends CharacterBody2D
 @export var move_speed: float = 50
 @export var damage: float = 5.0
 @export var attack_cooldown: float = 1.0
+
+@export_group("Projectile")
 @export var shoot_projectiles: bool = false
-#@export var projectile = null
+@export var projectile_scene: PackedScene
+@export var projectile_speed: float = 250.0
+@export var projectile_damage: float = 10.0
+@export var projectile_range: float = 500.0
+@export var projectile_spawner: MultiplayerSpawner
 
 var hp: float
 var can_attack = true
@@ -17,6 +23,12 @@ func die():
     queue_free()
     
 func take_damage(amount: float):
+    if not multiplayer.is_server():
+        return
+    apply_damage.rpc(amount)
+        
+@rpc("authority", "call_local", "reliable")
+func apply_damage(amount: float) -> void:
     hp -= amount
     if(hp <= 0):
         die()
@@ -45,8 +57,17 @@ func get_closest_player():
     return closest_player
     
 func _physics_process(delta: float) -> void:
+    if not multiplayer.is_server():
+        return
+        
     var closest_player = get_closest_player()
     if closest_player == null:
+        return
+        
+    if shoot_projectiles:
+        velocity = Vector2.ZERO
+        move_and_slide()
+        shoot_at_player(closest_player)
         return
         
     move_towards_player(closest_player)
@@ -63,3 +84,24 @@ func move_towards_player(player: Player):
     )
     velocity = direction * move_speed
     move_and_slide()
+
+func shoot_at_player(player: Player) -> void:
+    if not multiplayer.is_server():
+        return
+    if not can_attack or projectile_spawner == null:
+        return
+    if projectile_scene == null:
+        return
+        
+    can_attack = false
+    var direction = global_position.direction_to(player.global_position)
+        
+    projectile_spawner.spawn({
+        "position": global_position,
+        "direction": direction,
+        "speed": projectile_speed,
+        "damage": projectile_damage
+    })
+
+    await get_tree().create_timer(attack_cooldown).timeout
+    can_attack = true

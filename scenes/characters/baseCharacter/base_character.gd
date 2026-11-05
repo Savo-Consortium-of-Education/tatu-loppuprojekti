@@ -16,7 +16,7 @@ var angular_drag: float
 var max_speed: float
 var acceleration: float
 
-var default_weapon: PackedScene
+var default_weapon: WeaponData
 
 var current_hp: float
 var boost_energy: float
@@ -32,11 +32,14 @@ func _ready() -> void:
     if default_weapon:
         add_weapon(default_weapon)
         
-func add_weapon(weapon_scene: PackedScene) -> void:
-    var weapon = weapon_scene.instantiate() as Weapon
+func add_weapon(weapon_data: WeaponData) -> void:
+    var weapon = Weapon.new()
+    weapon.weapon_data = weapon_data
+    weapon.owner_character = self
+
     add_child(weapon)
     current_weapons.append(weapon)
-
+    
 func take_damage(amount: float) -> void:
     if self is Player:
         GameManager.damage_player(self, amount)

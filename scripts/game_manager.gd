@@ -11,19 +11,49 @@ signal game_ended()
 var selected_character: CharacterData
 var score: int = 0
 
-func boost_player(player: Player, amount_left: float):
+func boost_player(player: Player, amount_left: float) -> void:
+    if not multiplayer.is_server():
+        return
+    update_player_boost.rpc(player.get_path(), amount_left)
+
+@rpc("authority", "call_local", "unreliable")
+func update_player_boost(player_path: NodePath, amount_left: float) -> void:
+    var player = get_node_or_null(player_path) as Player
+    if player == null:
+        return
     player_boost.emit(player, amount_left)
 
 func damage_player(player: Player, damage: float) -> void:
+    if not multiplayer.is_server():
+        return
     if player.current_hp <= 0.0:
         return
-        
+    apply_player_damage.rpc(player.get_path(), damage)
+
+@rpc("authority", "call_local", "reliable")
+func apply_player_damage(player_path: NodePath, damage: float) -> void:
+    var player = get_node_or_null(player_path) as Player
+    if player == null:
+        return
+    if player.current_hp <= 0.0:
+        return
+
     player.current_hp = maxf(player.current_hp - damage, 0.0)
     player_damaged.emit(player, damage, player.current_hp)
     if player.current_hp <= 0.0:
         player_died.emit(player)
 
 func heal_player(player: Player, heal: float) -> void:
+    if not multiplayer.is_server():
+        return
+    apply_player_heal.rpc(player.get_path(), heal)
+
+@rpc("authority", "call_local", "reliable")
+func apply_player_heal(player_path: NodePath, heal: float) -> void:
+    var player = get_node_or_null(player_path) as Player
+    if player == null:
+        return
+        
     player.current_hp = minf(player.current_hp + heal, player.max_hp)
     player_healed.emit(player, heal, player.current_hp)
 

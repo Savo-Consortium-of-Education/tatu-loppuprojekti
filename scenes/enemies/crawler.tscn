@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dcbbdfokwjv3l"]
+
+[ext_resource type="Script" uid="uid://cda6vuwub685v" path="res://scenes/enemies/baseEnemy/base_enemy.gd" id="1_cgsye"]
+[ext_resource type="Texture2D" uid="uid://cw38naid3m3v7" path="res://assets/sprites/enemies/enemy_crawler.png" id="2_8yhgg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
+
+[node name="Crawler" type="CharacterBody2D" unique_id=941123928]
+script = ExtResource("1_cgsye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+shape = SubResource("CircleShape2D_kwnof")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
+texture = ExtResource("2_8yhgg")
