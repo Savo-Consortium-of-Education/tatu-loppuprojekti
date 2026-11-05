@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bxenu1v7e7vn3"]
+
+[ext_resource type="Texture2D" uid="uid://cuoihvddvkddq" path="res://assets/sprites/ui/ui_health_heart.png" id="1_lfc0y"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1545398439]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1659663731]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1585929683]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1784245968]
+layout_mode = 2
+texture = ExtResource("1_lfc0y")
+expand_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2031308029]
+layout_mode = 2
+
+[node name="UpgradeLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1757752404]
+layout_mode = 2
+text = "upgrade name"
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1285131028]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Increase hp"
+
+[node name="CurrentLevel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=980826084]
+layout_mode = 2
+text = "Lv. 1"

@@ -4,6 +4,7 @@ class_name Enemy extends CharacterBody2D
 @export var move_speed: float = 50
 @export var damage: float = 5.0
 @export var attack_cooldown: float = 1.0
+@export var xp: float = 1
 
 @export_group("Projectile")
 @export var shoot_projectiles: bool = false
@@ -14,13 +15,18 @@ class_name Enemy extends CharacterBody2D
 @export var projectile_damage: float = 10.0
 @export var projectile_spawner: MultiplayerSpawner
 
+@onready var xp_orb: PackedScene = preload("res://scenes/misc/xp_orb.tscn")
+
 var hp: float
 var can_attack = true
 
 func _ready() -> void:
+    add_to_group("enemies")
     hp = max_hp
     
 func die():
+    var xp_scene = xp_orb.instantiate()
+    get_parent().add_child(xp_scene)
     queue_free()
     
 func take_damage(amount: float):

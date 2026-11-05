@@ -5,7 +5,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
-[node name="Crawler" type="CharacterBody2D" unique_id=941123928]
+[node name="Crawler" type="CharacterBody2D" unique_id=941123928 groups=["enemies"]]
 script = ExtResource("1_cgsye")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]

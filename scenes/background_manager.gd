@@ -42,9 +42,7 @@ func _process(_delta):
     deep_material.set_shader_parameter("world_scale", viewport_size)
 
     # Nebula parallax
-    nebula_material.set_shader_parameter(
-        "camera_position", camera_pos * 0.15
-    )
+    nebula_material.set_shader_parameter("camera_position", camera_pos * 0.15)
     nebula_material.set_shader_parameter("zoom", zoom)
     nebula_material.set_shader_parameter("world_scale", viewport_size)
 
