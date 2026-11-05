@@ -23,33 +23,39 @@ var boost_energy: float
 var current_weapons: Array[Weapon] = []
 
 func _ready() -> void:
-	if character_data:
-		load_character_data()
-		
-	current_hp = max_hp
-	boost_energy = max_boost
-	
-	if default_weapon:
-		add_weapon(default_weapon)
-		
+    if character_data:
+        load_character_data()
+        
+    current_hp = max_hp
+    boost_energy = max_boost
+    
+    if default_weapon:
+        add_weapon(default_weapon)
+        
 func add_weapon(weapon_scene: PackedScene) -> void:
-	var weapon = weapon_scene.instantiate() as Weapon
-	add_child(weapon)
-	current_weapons.append(weapon)
-	
+    var weapon = weapon_scene.instantiate() as Weapon
+    add_child(weapon)
+    current_weapons.append(weapon)
+
+func take_damage(amount: float) -> void:
+    if self is Player:
+        GameManager.damage_player(self, amount)
+    else:
+        current_hp = maxf(current_hp - amount, 0.0)
+
 func load_character_data() -> void:
-	character_name = character_data.character_name
-	max_hp = character_data.max_hp
-	max_boost = character_data.max_boost
-	boost_multiplier = character_data.boost_multiplier
-	boost_recovery = character_data.boost_recovery
-	boost_drain = character_data.boost_drain
-	
-	rotation_speed = character_data.rotation_speed
-	linear_drag = character_data.linear_drag
-	angular_drag = character_data.angular_drag
-	max_speed = character_data.max_speed
-	acceleration = character_data.acceleration
-	
-	default_weapon = character_data.default_weapon
-	
+    character_name = character_data.character_name
+    max_hp = character_data.max_hp
+    max_boost = character_data.max_boost
+    boost_multiplier = character_data.boost_multiplier
+    boost_recovery = character_data.boost_recovery
+    boost_drain = character_data.boost_drain
+    
+    rotation_speed = character_data.rotation_speed
+    linear_drag = character_data.linear_drag
+    angular_drag = character_data.angular_drag
+    max_speed = character_data.max_speed
+    acceleration = character_data.acceleration
+    
+    default_weapon = character_data.default_weapon
+    
