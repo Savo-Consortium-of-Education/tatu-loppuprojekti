@@ -14,7 +14,7 @@ gradient = SubResource("Gradient_40xu0")
 
 [node name="XpOrb" type="Area2D" unique_id=1381425410 groups=["xp_orb"]]
 scale = Vector2(5, 5)
-collision_layer = 2
+collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_qoc7i")
 

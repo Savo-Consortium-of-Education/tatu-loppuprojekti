@@ -5,11 +5,67 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cn2c"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(0, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04ffy"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(508, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x17u5"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(1016, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y158s"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(0, 508, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it1ww"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(508, 508, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkoye"]
+atlas = ExtResource("2_6cn2c")
+region = Rect2(1016, 508, 508, 508)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cn2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04ffy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x17u5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y158s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it1ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkoye")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Destoryer" type="CharacterBody2D" unique_id=941123928]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_6cn2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
+scale = Vector2(2.9199982, 3.0800016)
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
-texture = ExtResource("2_6cn2c")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1420735909]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_kwnof")
+autoplay = "default"
+frame_progress = 0.8635121

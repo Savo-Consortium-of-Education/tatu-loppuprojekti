@@ -6,7 +6,59 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yghn5"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(0, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u0yl"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(508, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqdo6"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(1016, 0, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyl5i"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(0, 508, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drkh4"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(508, 508, 508, 508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rri3c"]
+atlas = ExtResource("2_leyjb")
+region = Rect2(1016, 508, 508, 508)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yghn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u0yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqdo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyl5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drkh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rri3c")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Interceptor" type="CharacterBody2D" unique_id=941123928]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_leyjb")
 shoot_projectiles = true
 projectile_scene = ExtResource("2_yghn5")
@@ -14,5 +66,7 @@ projectile_scene = ExtResource("2_yghn5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=705301625]
 shape = SubResource("CircleShape2D_kwnof")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1669599853]
-texture = ExtResource("2_leyjb")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1654554168]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_kwnof")
+autoplay = "default"

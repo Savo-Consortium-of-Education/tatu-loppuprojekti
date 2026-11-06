@@ -6,6 +6,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
 [node name="Watcher" type="CharacterBody2D" unique_id=941123928]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_1247l")
 shoot_projectiles = true
 
