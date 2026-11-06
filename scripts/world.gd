@@ -5,19 +5,22 @@ extends Node2D
 @onready var enemy_spawner = $EnemySpawner
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
+const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn")
 
 var elapsed_time: int = 0
 var is_paused: bool = false
 
 func _ready() -> void:
-    var player = PLAYER_SCENE.instantiate() as Player
-    player.character_data = GameManager.selected_character
-    add_child(player)
-
     GameManager.player_died.connect(_on_player_died)
+    GameManager.player_levelup.connect(_on_player_levelup)
+    GameManager.player_xp_changed.connect(_on_player_xp_changed)
     
     timer.timeout.connect(_on_timer_timeout)
+    
     if multiplayer.is_server():
+        spawn_player(1)
+        for peer_id in multiplayer.get_peers():
+            spawn_player(peer_id)
         start_game()
         
 func start_game() -> void:
@@ -33,6 +36,13 @@ func start_game() -> void:
     update_timer.rpc(elapsed_time)
     timer.start()
     
+func spawn_player(peer_id: int) -> void:
+    var player = PLAYER_SCENE.instantiate() as Player
+    player.character_data = GameManager.selected_character
+    player.name = str(peer_id)
+    player.set_multiplayer_authority(peer_id)
+    add_child(player)
+    
 func _on_timer_timeout() -> void:
     if not multiplayer.is_server():
         return
@@ -45,7 +55,6 @@ func _on_timer_timeout() -> void:
 func update_timer(time: int) -> void:
     hud.update_time(time)
     
-@rpc("any_peer", "call_remote", "reliable")
 func pause_game() -> void:
     if not multiplayer.is_server() or is_paused:
         return
@@ -71,9 +80,44 @@ func set_game_paused(paused: bool) -> void:
 func end_game() -> void:
     if not multiplayer.is_server():
         return
-        
+       
     timer.stop()
     GameManager.end_game()
 
 func _on_player_died(player: Player) -> void:
     print("player died: ", player)
+
+func _on_player_levelup(player: Player) -> void:
+    if not multiplayer.is_server():
+        return
+        
+    print("Player leveled up: ", player.name)
+    pause_game()
+    var peer_id = player.get_multiplayer_authority()
+    if peer_id == multiplayer.get_unique_id():
+        show_upgrade_menu()
+    else:
+        rpc_id(peer_id, "show_upgrade_menu")
+
+@rpc("authority", "call_remote", "reliable")
+func show_upgrade_menu() -> void:
+    var menu = UPGRADE_MENU.instantiate()
+    hud.add_child(menu)
+    menu.upgrade_finished.connect(_on_upgrade_finished)
+
+func _on_upgrade_finished() -> void:
+    if multiplayer.is_server():
+        continue_game()
+    else:
+        request_continue_game.rpc_id(1)
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_continue_game() -> void:
+    if not multiplayer.is_server():
+        return
+    continue_game()
+
+func _on_player_xp_changed(peer_id: int, current_xp: float, xp_required: float, level: int) -> void:
+    if peer_id != multiplayer.get_unique_id():
+        return
+    hud.update_xp(current_xp, xp_required, level)

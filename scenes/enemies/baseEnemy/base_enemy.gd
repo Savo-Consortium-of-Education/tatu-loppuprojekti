@@ -25,8 +25,10 @@ func _ready() -> void:
     hp = max_hp
     
 func die():
-    var xp_scene = xp_orb.instantiate()
-    get_parent().add_child(xp_scene)
+    var orb = xp_orb.instantiate()
+    orb.xp_value = xp
+    orb.global_position = global_position
+    get_parent().add_child(orb)
     queue_free()
     
 func take_damage(amount: float):

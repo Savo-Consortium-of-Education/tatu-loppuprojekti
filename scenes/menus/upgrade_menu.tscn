@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3xr3olrflg80"]
 
 [ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="1_j4pd8"]
+[ext_resource type="Script" uid="uid://ckv7dngltq5qg" path="res://scripts/ui/upgrade_menu.gd" id="1_v6agg"]
 [ext_resource type="PackedScene" uid="uid://bxenu1v7e7vn3" path="res://scenes/menus/upgrade_card.tscn" id="2_vsubm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6agg"]
@@ -15,6 +16,7 @@ border_color = Color(0.23921569, 0.29803923, 0.5882353, 1)
 font_size = 40
 
 [node name="UpgradeMenu" type="CanvasLayer" unique_id=1243852161]
+script = ExtResource("1_v6agg")
 
 [node name="Control" type="Control" parent="." unique_id=1008660238]
 layout_mode = 3

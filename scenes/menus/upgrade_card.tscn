@@ -1,13 +1,28 @@
 [gd_scene format=3 uid="uid://bxenu1v7e7vn3"]
 
 [ext_resource type="Texture2D" uid="uid://cuoihvddvkddq" path="res://assets/sprites/ui/ui_health_heart.png" id="1_lfc0y"]
+[ext_resource type="Script" uid="uid://bm16ffdql81dt" path="res://scripts/ui/upgrade_card.gd" id="1_o63o4"]
 
-[node name="PanelContainer" type="PanelContainer" unique_id=1545398439]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PanelContainer" type="Button" unique_id=135828320]
+offset_right = 153.0
+offset_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_o63o4")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1659663731]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -127.0
+offset_right = 76.5
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -36,3 +51,5 @@ text = "Increase hp"
 [node name="CurrentLevel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=980826084]
 layout_mode = 2
 text = "Lv. 1"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

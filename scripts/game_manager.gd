@@ -5,6 +5,7 @@ signal player_boost(player: Player, amount_left: float)
 signal player_damaged(player: Player, damage: float, new_hp)
 signal player_healed(player: Player, heal: float, new_hp: float)
 signal player_levelup(player: Player)
+signal player_xp_changed(peer_id: int, current_xp: float, xp_required: float, level: int)
 signal score_changed(new_score: int)
 signal game_ended()
 
@@ -58,9 +59,14 @@ func apply_player_heal(player_path: NodePath, heal: float) -> void:
     player.current_hp = minf(player.current_hp + heal, player.max_hp)
     player_healed.emit(player, heal, player.current_hp)
 
-func levelup_player(player: Player):
-    player.current_level += 1
-    player_levelup.emit(player)
+@rpc("authority", "call_local", "reliable")
+func update_player_xp(peer_id: int, current_xp: float, xp_required: float, level: int) -> void:
+    player_xp_changed.emit(
+        peer_id,
+        current_xp,
+        xp_required,
+        level
+    )
 
 func add_score(points) -> void:
     score += points

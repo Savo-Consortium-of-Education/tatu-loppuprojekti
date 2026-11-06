@@ -66,10 +66,11 @@ theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
 [node name="LevelLabel" type="Label" parent="Control/FlowContainer/PanelContainer/MarginContainer" unique_id=790334156]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_8qguk")
 theme_override_font_sizes/font_size = 32
-text = "Lv. 0"
+text = "Lv: 0"
 vertical_alignment = 1
 
 [node name="HFlowContainer" type="HFlowContainer" parent="Control/FlowContainer/PanelContainer/MarginContainer" unique_id=1961629334]
@@ -145,6 +146,7 @@ theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
 [node name="Level" type="TextureProgressBar" parent="Control/VBoxContainer/LevelContainer/MarginContainer" unique_id=1136639911]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 12)
 custom_maximum_size = Vector2(-1, 16)
 layout_mode = 2

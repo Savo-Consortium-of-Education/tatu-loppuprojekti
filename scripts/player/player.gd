@@ -6,6 +6,8 @@ var current_speed: float = 0.0
 var current_level: int = 0
 var boost_active: bool = false
 var angular_velocity: float = 0.0
+var current_xp: float = 0.0
+var xp_to_next_level: float = 10.0
 
 func _physics_process(delta: float) -> void:
     if is_multiplayer_authority():
@@ -66,6 +68,33 @@ func handle_rotation(delta: float) -> void:
         get_global_mouse_position()
     ).angle() + GameManager.SPRITE_ROTATION_OFFSET
 
+func gain_xp(amount: float) -> void:
+    if not multiplayer.is_server():
+        return
+    
+    var levels_gained := 0
+        
+    current_xp += amount
+    while current_xp >= xp_to_next_level:
+        current_xp -= xp_to_next_level
+        current_level += 1
+        xp_to_next_level *= 1.5
+        levels_gained += 1
+        
+    GameManager.update_player_xp.rpc(
+        get_multiplayer_authority(), 
+        current_xp,
+        xp_to_next_level,
+        current_level
+    )
+    
+    for i in range(levels_gained):
+        GameManager.player_levelup.emit(self)
+func level_up() -> void:
+    current_level += 1
+    xp_to_next_level *= 1.5
+    print("Level up! Current level: ", current_level)
+    GameManager.player_levelup.emit(self)
 
 func _on_ready() -> void:
     add_to_group("players")

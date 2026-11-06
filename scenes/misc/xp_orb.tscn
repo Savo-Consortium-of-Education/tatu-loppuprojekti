@@ -27,4 +27,5 @@ texture = SubResource("GradientTexture2D_av5ag")
 scale = Vector2(0.2, 0.2)
 shape = SubResource("CircleShape2D_rvr8k")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="ready" from="." to="." method="_on_ready"]
