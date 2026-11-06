@@ -7,13 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/crawler.tscn" id="4_k0juu"]
 [ext_resource type="Script" uid="uid://e47htshakmap" path="res://scenes/background_manager.gd" id="5_qfnet"]
 [ext_resource type="Script" uid="uid://cu7xnghmhhwwe" path="res://scripts/enemy_spawner.gd" id="6_i7141"]
+[ext_resource type="Shader" uid="uid://bm6ipb38fq3n1" path="res://resources/shaders/starfield.gdshader" id="6_o8fc1"]
 [ext_resource type="Shader" uid="uid://b8j75k3h1w722" path="res://resources/shaders/nebula.gdshader" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://06nxfvh0ytjp" path="res://scenes/enemies/slime.tscn" id="8_7r4gi"]
+[ext_resource type="Shader" uid="uid://0pvgaoqgt3g0" path="res://resources/shaders/deep_space.gdshader" id="8_dss4m"]
+[ext_resource type="Shader" uid="uid://cjfxnpg4mjxbo" path="res://resources/shaders/grid.gdshader" id="9_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://dgsfc25q8xrwu" path="res://scenes/enemies/jellyfish.tscn" id="9_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://bwxbaqghk8ghd" path="res://scenes/enemies/destroyer.tscn" id="10_q5onr"]
 [ext_resource type="PackedScene" uid="uid://b5dr71h0b4eqi" path="res://scenes/enemies/watcher.tscn" id="11_jhx03"]
 [ext_resource type="PackedScene" uid="uid://xwdlcbdaejci" path="res://scenes/enemies/interceptor.tscn" id="12_o8fc1"]
-[ext_resource type="PackedScene" uid="uid://dcpmwu3uvmgbq" path="res://scenes/misc/xp_orb.tscn" id="14_o8fc1"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("1_rwgxs")
@@ -25,19 +27,110 @@ sky_material = SubResource("PanoramaSkyMaterial_k0juu")
 background_mode = 3
 sky = SubResource("Sky_nnsk1")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwnof"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo05s"]
+shader = ExtResource("6_o8fc1")
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/density = 0.89999997723
+shader_parameter/layer_parascale = 3
+shader_parameter/star_speed = Vector2(0.002, 0.001)
+shader_parameter/star_wave = Vector2(0.03, 0.01)
+shader_parameter/star_size = 1.999999955296
+shader_parameter/star_rotate_speed = 0.5
+shader_parameter/twinkle_effect = 0.1999999955296
+shader_parameter/twinkle_speed = 0.3
+shader_parameter/pixelate_enabled = true
+shader_parameter/pixelate_count = 1000.0
+
+[sub_resource type="Gradient" id="Gradient_lakw3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t5mc"]
+noise_type = 0
+seed = 67
+frequency = 0.012
+fractal_gain = 0.48
+fractal_weighted_strength = 0.35
+fractal_ping_pong_strength = 1.0
+domain_warp_enabled = true
+domain_warp_frequency = 0.015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dss4m"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_7t5mc")
+color_ramp = SubResource("Gradient_lakw3")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dss4m"]
 shader = ExtResource("6_qfnet")
-shader_parameter/camera_position = Vector2(0.15, 0.15)
+shader_parameter/camera_position = Vector2(0, 0)
 shader_parameter/zoom = 1.0
-shader_parameter/world_scale = Vector2(1, 1)
-shader_parameter/color_a = Color(0.30154043, 0.13856745, 0.6234427, 1)
-shader_parameter/color_b = Color(0.02, 0.12, 0.3, 1)
-shader_parameter/color_c = Color(0.3, 0.03, 0.15, 1)
-shader_parameter/color_d = Color(0.02, 0.2, 0.15, 1)
-shader_parameter/time = 0.0
-shader_parameter/nebula_drift = Vector2(0.5, 0.2)
-shader_parameter/noise_scale = 0.3
-shader_parameter/nebula_strength = 0.7
+shader_parameter/world_scale = Vector2(1920, 1080)
+shader_parameter/timeScaleFactor = 0.013
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_dss4m")
+shader_parameter/colour_muiltiplier = Color(1, 1, 1, 1)
+shader_parameter/colour_muiltiplier2 = Color(1, 1, 1, 1)
+shader_parameter/brightness = 1.3
+shader_parameter/clouds_resolution = 8.0
+shader_parameter/clouds_intesity = 0.15
+shader_parameter/waveyness = 1.6
+shader_parameter/fragmentation = 9.0
+shader_parameter/distortion = 1.8
+shader_parameter/clouds_alpha = 0.5
+shader_parameter/movement = 1.0
+shader_parameter/blur = 1.5
+shader_parameter/blur2 = 0.014
+shader_parameter/bg_speed = 0.12
+shader_parameter/mid_speed = 0.3
+shader_parameter/fg_speed = 0.45
+shader_parameter/pixel_size = 5.0
+shader_parameter/color_steps = 5.0
+shader_parameter/pixel_dither = 0.035
+shader_parameter/cloud_softness = 1.0
+shader_parameter/color_blend = 0.65
+shader_parameter/quantize_clouds = false
+shader_parameter/color_purple = Color(0.16, 0.025, 0.38, 1)
+shader_parameter/color_blue = Color(0.025, 0.1, 0.38, 1)
+shader_parameter/color_cyan = Color(0.015, 0.3, 0.42, 1)
+shader_parameter/color_pink = Color(0.42, 0.035, 0.28, 1)
+shader_parameter/color_magenta = Color(0.3, 0.035, 0.42, 1)
+shader_parameter/color_orange = Color(0.42, 0.12, 0.045, 1)
+shader_parameter/color_lavender = Color(0.3, 0.2, 0.48, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwnof"]
+shader = ExtResource("8_dss4m")
+shader_parameter/camera_position = Vector2(0, 0)
+shader_parameter/zoom = 1.0
+shader_parameter/world_scale = Vector2(1920, 1080)
+shader_parameter/space_color = Color(0.008, 0.012, 0.035, 1)
+shader_parameter/blue_glow = Color(0.025, 0.055, 0.16, 1)
+shader_parameter/purple_glow = Color(0.09, 0.025, 0.14, 1)
+shader_parameter/cyan_glow = Color(0.015, 0.09, 0.14, 1)
+shader_parameter/pixel_size = 5.0
+shader_parameter/glow_strength = 0.650000030875
+shader_parameter/dust_strength = 0.1200000057
+shader_parameter/vignette_strength = 0.550000026125
+shader_parameter/animation_speed = 0.008
+shader_parameter/dither_strength = 0.018
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvr8k"]
+shader = ExtResource("9_7t5mc")
+shader_parameter/line_color = Color(0.1, 0.1, 0.3, 1)
+shader_parameter/glow_color = Color(0.2, 0.4, 1, 1)
+shader_parameter/grid_size = 0.06
+shader_parameter/line_thickness = 0.002
+shader_parameter/viewport_size = Vector2(1920, 1080)
+shader_parameter/camera_position = Vector2(0, 0)
+shader_parameter/zoom = 1.0
+shader_parameter/animation_speed = 0.25
+shader_parameter/scroll_speed = 0.06
+shader_parameter/motion_strength = 0.007
+shader_parameter/motion_speed1 = 0.03
+shader_parameter/motion_speed2 = 0.015
+shader_parameter/glow_strength = 1.2
+shader_parameter/glow_radius = 0.5
+shader_parameter/glow_pulse_speed = 0.4
+shader_parameter/camera_exclusion_radius = 0.12
+shader_parameter/camera_fade_softness = 0.08
 
 [node name="World" type="Node2D" unique_id=1789966192]
 script = ExtResource("1_k0juu")
@@ -65,10 +158,20 @@ script = ExtResource("4_jhx03")
 [node name="Enemies" type="Node2D" parent="." unique_id=1625680015]
 
 [node name="BackgroundManager" type="CanvasLayer" parent="." unique_id=2061202080]
+layer = -1
 script = ExtResource("5_qfnet")
+grid_animation_speed = 0.4
+grid_size = 140.0
+grid_line_thickness = 1.0
+grid_glow_strength = 0.6
+camera_exclusion_radius = 0.34
+camera_fade_softness = 0.5
+large_frequency = 0.012
 
 [node name="Starfield" type="ColorRect" parent="BackgroundManager" unique_id=147986569]
-material = SubResource("ShaderMaterial_kwnof")
+z_index = 4
+texture_filter = 2
+material = SubResource("ShaderMaterial_xo05s")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -77,7 +180,8 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Nebula" type="ColorRect" parent="BackgroundManager" unique_id=1346113323]
-material = SubResource("ShaderMaterial_kwnof")
+z_index = 3
+material = SubResource("ShaderMaterial_dss4m")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -86,7 +190,22 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="DeepSpace" type="ColorRect" parent="BackgroundManager" unique_id=1432409953]
+z_index = 1
+texture_filter = 2
+texture_repeat = 2
 material = SubResource("ShaderMaterial_kwnof")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Grid" type="ColorRect" parent="BackgroundManager" unique_id=346505675]
+z_index = 2
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_rvr8k")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -111,7 +230,3 @@ spawn_distance = 700.0
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=74926261]
 
 [node name="DifficultyTimer" type="Timer" parent="EnemySpawner" unique_id=535142506]
-
-[node name="XpOrb" parent="." unique_id=1381425410 instance=ExtResource("14_o8fc1")]
-position = Vector2(598, 297)
-xp_value = 100.0

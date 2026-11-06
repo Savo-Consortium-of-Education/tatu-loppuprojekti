@@ -1,63 +1,105 @@
-
 shader_type canvas_item;
-render_mode blend_add;
 
-uniform vec2 camera_position = vec2(0.0);
-uniform float zoom = 1.0;
+uniform float aspect_ratio = 1.0;
+uniform float density : hint_range(0.0, 3.0, 0.0001) = 1.3;
+uniform int layer_parascale : hint_range(0, 5, 1) = 4;
+uniform vec2 star_speed = vec2(0.0);
+uniform vec2 star_wave = vec2(0.0);
+uniform float star_size : hint_range(0.0, 100.0, 0.01) = 3.0;
+uniform float star_rotate_speed : hint_range(-3.0, 3.0) = 0.5;
+uniform float twinkle_effect : hint_range(0.0, 1.0, 0.01) = 0.6;
+uniform float twinkle_speed : hint_range(0.0, 100.0, 0.01) = 0.3;
+uniform bool pixelate_enabled = false;
+uniform float pixelate_count = 1000.0;
 
-uniform float star_density = 0.0015;
-uniform float star_size = 1.2;
-uniform float brightness = 1.0;
+float one_div_x(float x) {
+	return (abs(x) < 0.0001) ? 1.0 : (1.0/x);
+}
 
-uniform vec2 world_scale = vec2(1.0);
+float one_div_x2(float x) {
+	return one_div_x(x) * one_div_x(x);
+}
 
-float hash21(vec2 p) {
-    p = fract(p * vec2(123.34, 456.21));
-    p += dot(p, p + 45.32);
-    return fract(p.x * p.y);
+float get_beta_w(float x, float f, float size) {
+	return size * x * PI / f;
+}
+
+float get_beta_h(float y, float f, float size) {
+	return size * y * PI / f;
+}
+
+float get_i(vec2 uv, float f, vec2 size) {
+	return one_div_x2(get_beta_w(uv.x, f, size.x)) * one_div_x2(get_beta_h(uv.y, f, size.y));
+}
+
+float random(vec2 st) {
+	return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43759.5453123);
+}
+
+vec2 get_snowflake_world_center(vec2 grid_id, vec2 time_offset, vec2 snow_offset, float layer_scale) {
+	return (grid_id + snow_offset + time_offset) / layer_scale;
+}
+
+vec2 rotate(vec2 uv, float add_theta) {
+	float theta = atan(uv.y, uv.x) + add_theta;
+	float r = length(uv);
+	return vec2(r * cos(theta), r * sin(theta));
 }
 
 void fragment() {
-    // Screen coordinates transformed into world coordinates.
-    vec2 world_pos =
-        camera_position + (SCREEN_UV - vec2(0.5)) * world_scale / zoom;
+	vec4 color = vec4(0.0);
 
-    // Divide the universe into small cells.
-    vec2 cell = floor(world_pos * 0.1);
+	vec2 st = UV;
+	if (pixelate_enabled) {
+		st = round(st * pixelate_count) / pixelate_count;
+	}
+	st.x *= aspect_ratio;
+	vec2 cuv = (st - 0.5) * 2.0;
 
-    float stars = 0.0;
+	// Multi-layer star effect
+	for (int layer = 0; layer < layer_parascale; layer++) {
+		float layer_scale = exp(float(layer + 1) * density);
+		vec2 layer_speed = vec2(star_speed.x, star_speed.y) * (1.0 + float(layer) * 0.3);
+		float layer_size = star_size * (1.0 - float(layer) * 0.2);
 
-    for (int x = -1; x <= 1; x++) {
-        for (int y = -1; y <= 1; y++) {
-            vec2 current_cell = cell + vec2(float(x), float(y));
+		vec2 layer_st = st * layer_scale;
+		vec2 cuv_st = cuv;
 
-            float random_value = hash21(current_cell);
+		vec2 time_offset = TIME * layer_speed;
+		layer_st -= time_offset;
 
-            if (random_value > 1.0 - star_density) {
-                vec2 offset = vec2(
-                    hash21(current_cell + 12.3),
-                    hash21(current_cell + 45.6)
-                );
+		vec2 grid_st = fract(layer_st);
+		vec2 grid_id = floor(layer_st);
 
-                vec2 star_pos =
-                    (current_cell + offset) * 10.0;
+		float rand_seed = random(grid_id);
 
-                float dist = distance(world_pos, star_pos);
+		vec2 snow_pos = vec2(
+			0.5 + (0.3 * sin((rand_seed * 6.28) + (TIME * star_wave.x))),
+			0.5 + (0.2 * cos((rand_seed * 12.56) + (TIME * star_wave.y)))
+		);
 
-                float star = 1.0 - smoothstep(
-                    0.0,
-                    star_size,
-                    dist
-                );
+		float dist = distance(grid_st, snow_pos);
+		float snow_size = layer_size * 0.01 * (0.5 + 0.5 * rand_seed);
+		float brightness = 1.0 - (float(layer) * 0.3);
 
-                stars += star * random_value;
-            }
-        }
-    }
+		float m = exp((-dist * dist) / (snow_size * snow_size));
 
-    float star_brightness = clamp(stars * brightness, 0.0, 1.0);
-    COLOR = vec4(
-        vec3(star_brightness),
-        star_brightness
+		vec2 fst = cuv_st - (get_snowflake_world_center(grid_id, time_offset, snow_pos, layer_scale) - 0.5) * 2.0;
+		fst = rotate(fst, TIME * star_rotate_speed);
+
+		float snowflake = m * 0.5 * (get_i(fst, 0.8 - (dist * 42.0), vec2(1.0 / snow_size)) + 1.0);
+
+		// Twinkle effect
+		float twinkle = (1.0 - twinkle_effect) + twinkle_effect * (sin(rand_seed * 100.0 + TIME * twinkle_speed) * cos(rand_seed * 120.0 + TIME * (twinkle_speed + 2.0)));
+		snowflake *= twinkle;
+
+		vec3 color_type = vec3(random(grid_id - 3.0), random(grid_id + 7.0), random(grid_id + 5.0));
+
+		color = max(color, color + ((snowflake * brightness) * vec4(color_type, 1.0)));
+	}
+
+	COLOR = vec4(
+        color.rgb,
+        clamp(max(color.r, max(color.g, color.b)), 0.0, 1.0)
     );
 }
