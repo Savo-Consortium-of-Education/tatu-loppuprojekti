@@ -8,9 +8,7 @@ class_name Enemy extends CharacterBody2D
 
 @export_group("Projectile")
 @export var shoot_projectiles: bool = false
-@export var projectile_scene: PackedScene = preload(
-    "res://scenes/projectiles/bolt.tscn"
-)
+@export var projectile_scene: PackedScene = preload("res://scenes/projectiles/bolt.tscn")
 @export var projectile_speed: float = 250.0
 @export var projectile_damage: float = 10.0
 @export var projectile_spawner: MultiplayerSpawner
