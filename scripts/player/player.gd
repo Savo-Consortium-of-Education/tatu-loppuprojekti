@@ -9,6 +9,7 @@ var boost_active: bool = false
 var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
+var is_dead: bool = false
 
 func _physics_process(delta: float) -> void:
     if is_multiplayer_authority():
