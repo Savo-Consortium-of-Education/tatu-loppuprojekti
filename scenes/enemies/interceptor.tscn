@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://xwdlcbdaejci"]
+[gd_scene format=3 uid="uid://xwdlcbdaejci"]
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_leyjb"]
 [ext_resource type="Texture2D" uid="uid://dowi3fdlmbg1m" path="res://assets/sprites/enemies/enemy_interceptor.png" id="2_leyjb"]

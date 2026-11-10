@@ -3,11 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://ccjdlg8w2xb1i" path="res://scenes/ui/hud.tscn" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://qw6ecitnvlsk" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="Texture2D" uid="uid://durd72l258po5" path="res://assets/sky/Starfields/Starfield_01-1024x1024.png" id="1_rwgxs"]
-[ext_resource type="Script" uid="uid://csqkbljsr6fvb" path="res://scripts/projectile_spawner.gd" id="4_jhx03"]
+[ext_resource type="Script" uid="uid://csqkbljsr6fvb" path="res://scripts/weapons/projectiles/projectile_spawner.gd" id="4_jhx03"]
 [ext_resource type="PackedScene" uid="uid://dcbbdfokwjv3l" path="res://scenes/enemies/crawler.tscn" id="4_k0juu"]
 [ext_resource type="Script" uid="uid://bg8qnpe7idde0" path="res://scripts/misc/xp_orb_spawner.gd" id="5_7t5mc"]
-[ext_resource type="Script" uid="uid://e47htshakmap" path="res://scenes/background_manager.gd" id="5_qfnet"]
-[ext_resource type="Script" uid="uid://cu7xnghmhhwwe" path="res://scripts/enemy_spawner.gd" id="6_i7141"]
+[ext_resource type="Script" uid="uid://e47htshakmap" path="res://scripts/misc/background_manager.gd" id="5_qfnet"]
+[ext_resource type="Script" uid="uid://cu7xnghmhhwwe" path="res://scripts/enemies/enemy_spawner.gd" id="6_i7141"]
 [ext_resource type="Shader" uid="uid://bm6ipb38fq3n1" path="res://resources/shaders/starfield.gdshader" id="6_o8fc1"]
 [ext_resource type="Shader" uid="uid://b8j75k3h1w722" path="res://resources/shaders/nebula.gdshader" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://06nxfvh0ytjp" path="res://scenes/enemies/slime.tscn" id="8_7r4gi"]
@@ -158,11 +158,11 @@ script = ExtResource("4_jhx03")
 spawn_path = NodePath("../XpOrbs")
 script = ExtResource("5_7t5mc")
 
-[node name="XpOrbs" type="Node2D" parent="." unique_id=784941827]
+[node name="Enemies" type="Node2D" parent="." unique_id=1625680015]
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=2146273196]
 
-[node name="Enemies" type="Node2D" parent="." unique_id=1625680015]
+[node name="XpOrbs" type="Node2D" parent="." unique_id=784941827]
 
 [node name="BackgroundManager" type="CanvasLayer" parent="." unique_id=2061202080]
 layer = -1

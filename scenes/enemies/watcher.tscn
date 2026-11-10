@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5dr71h0b4eqi"]
+[gd_scene format=3 uid="uid://b5dr71h0b4eqi"]
 
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_1247l"]
 [ext_resource type="Texture2D" uid="uid://3u0d27lh4xkq" path="res://assets/sprites/enemies/enemy_watcher.png" id="2_1247l"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bh6tf1i17t437"]
 
 [ext_resource type="Texture2D" uid="uid://dg57bad0cheu1" path="res://assets/sprites/projectiles/projectile_bolt_large.png" id="1_jxtbm"]
-[ext_resource type="Script" uid="uid://chw5n14gdpla0" path="res://scenes/projectiles/baseProjectile/base_projectile.gd" id="1_reut4"]
+[ext_resource type="Script" uid="uid://chw5n14gdpla0" path="res://scripts/weapons/projectiles/baseProjectile/base_projectile.gd" id="1_reut4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kwnof"]
 
