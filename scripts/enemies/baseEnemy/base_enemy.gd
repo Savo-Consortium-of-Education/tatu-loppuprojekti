@@ -147,6 +147,7 @@ func shoot_at_player(player: Player) -> void:
         "speed": projectile_speed,
         "damage": projectile_damage,
         "projectile_path": projectile_path,
+        "shooter_is_enemy": true,
         "shooter_path": get_path()
     })
 
