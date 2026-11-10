@@ -8,11 +8,13 @@ signal player_healed(player: Player, heal: float, new_hp: float)
 signal player_levelup(player: Player)
 signal player_xp_changed(peer_id: int, current_xp: float, xp_required: float, level: int)
 signal score_changed(new_score: int)
+signal coins_changed(new_coins: int)
 signal game_ended()
 
 const SPRITE_ROTATION_OFFSET := deg_to_rad(90)
 var selected_character: CharacterData
 var score: int = 0
+var coins: int = 0
 
 func use_ability_player(player: Player, amount_left: float) -> void:
     if not multiplayer.is_server():
@@ -90,13 +92,35 @@ func update_player_xp(peer_id: int, current_xp: float, xp_required: float, level
         level
     )
 
-func add_score(points) -> void:
+func add_score(points: int) -> void:
+    if not multiplayer.is_server():
+        return
     score += points
+    update_score.rpc(score)
+
+func add_coins(amount: int) -> void:
+    if not multiplayer.is_server():
+        return
+    coins += amount
+    update_coins.rpc(coins)
+
+@rpc("authority", "call_local", "reliable")
+func update_score(new_score: int) -> void:
+    score = new_score
     score_changed.emit(score)
+
+@rpc("authority", "call_local", "reliable")
+func update_coins(new_coins: int) -> void:
+    coins = new_coins
+    coins_changed.emit(coins)
 
 func end_game() -> void:
     game_ended.emit()
 
 func reset() -> void:
+    if not multiplayer.is_server():
+        return
     score = 0
-    score_changed.emit(score)
+    coins = 0
+    update_score.rpc(score)
+    update_coins.rpc(coins)

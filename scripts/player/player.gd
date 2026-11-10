@@ -31,6 +31,15 @@ func _ready() -> void:
         abilities.append(ability)
 
     GameManager.player_add_ability.connect(_update_ability)
+    GameManager.player_healed.emit(self, 0.0, current_hp)
+    if multiplayer.is_server():
+        GameManager.use_ability_player(self, ability_energy)
+        GameManager.update_player_xp.rpc(
+            get_multiplayer_authority(),
+            current_xp,
+            xp_to_next_level,
+            current_level
+        )
 
 func _physics_process(delta: float) -> void:
     if is_multiplayer_authority():

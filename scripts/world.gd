@@ -31,6 +31,7 @@ func start_game() -> void:
         return
         
     SaveManager.reset_run_stats()
+    GameManager.reset()
         
     elapsed_time = 0
     is_paused = false
