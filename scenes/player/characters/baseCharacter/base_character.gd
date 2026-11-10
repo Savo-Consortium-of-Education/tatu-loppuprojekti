@@ -1,7 +1,7 @@
 class_name Character 
 extends CharacterBody2D
 
-@export var character_data: CharacterData
+var character_data: CharacterData
 
 var character_name: String
 var max_hp: float
@@ -48,6 +48,13 @@ func take_damage(amount: float) -> void:
 
 func load_character_data() -> void:
     character_name = character_data.character_name
+    var ship_sprite := get_node_or_null("Visuals/ShipSprite") as Sprite2D
+    if ship_sprite != null and character_data.ship_texture != null:
+        var atlas_texture := AtlasTexture.new()
+        atlas_texture.atlas = character_data.ship_texture
+        atlas_texture.region = character_data.ship_region
+        ship_sprite.texture = atlas_texture
+
     max_hp = character_data.max_hp
     max_boost = character_data.max_boost
     boost_multiplier = character_data.boost_multiplier

@@ -5,7 +5,7 @@ extends Node2D
 @onready var hud: CanvasLayer = $Hud
 @onready var enemy_spawner = $EnemySpawner
 
-const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
+const PLAYER_SCENE: PackedScene = preload("res://scenes/player/player.tscn")
 const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn")
 const GAME_OVER_MENU: PackedScene = preload("res://scenes/menus/game_over.tscn")
 

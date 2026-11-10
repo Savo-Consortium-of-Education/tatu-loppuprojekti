@@ -5,6 +5,10 @@ extends Resource
 @export var character_name: String = "Unnamed"
 @export var portrait: Texture2D
 
+@export_group("Visuals")
+@export var ship_texture: Texture2D
+@export var ship_region: Rect2 = Rect2(8, 11, 110, 132)
+
 @export_group("Stats")
 @export var max_hp: float = 100.0
 @export var max_boost: float = 100.0
@@ -22,3 +26,6 @@ extends Resource
 
 @export_group("Weapons")
 @export var default_weapon: WeaponData
+
+@export_group("Ability")
+@export var abilities: Array[PackedScene] = []

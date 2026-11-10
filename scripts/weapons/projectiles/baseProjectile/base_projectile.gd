@@ -46,6 +46,10 @@ func _on_area_entered(area: Area2D) -> void:
     if not multiplayer.is_server():
         return
         
+    if shooter_is_enemy and area.is_in_group("player_shields"):
+        queue_free()
+        return
+
     if not area is Projectile:
         return
 
