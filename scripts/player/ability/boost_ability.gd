@@ -2,21 +2,21 @@ class_name BoostAbility
 extends PlayerAbility
 
 func process_ability(delta: float) -> void:
-    var requested := Input.is_action_pressed("ability") and player.boost_energy > 0.0
+    var requested := Input.is_action_pressed("ability") and player.ability_energy > 0.0
     set_active(requested)
 
     if active:
-        player.boost_energy = maxf(
-            player.boost_energy - player.boost_drain * delta,
+        player.ability_energy = maxf(
+            player.ability_energy - player.ability_drain * delta,
             0.0
         )
     else:
-        player.boost_energy = minf(
-            player.boost_energy + player.boost_recovery * delta,
-            player.max_boost
+        player.ability_energy = minf(
+            player.ability_energy + player.ability_recovery * delta,
+            player.max_ability
         )
 
-    GameManager.boost_player(player, player.boost_energy)
+    GameManager.ability_player(player, player.ability_energy)
 
 func movement_multiplier() -> float:
-    return player.boost_multiplier if active else 1.0
+    return player.ability_multiplier if active else 1.0

@@ -1,7 +1,7 @@
 extends Node
 
 signal player_died(player: Player)
-signal player_boost(player: Player, amount_left: float)
+signal player_use_ability(player: Player, amount_left: float)
 signal player_damaged(player: Player, damage: float, new_hp)
 signal player_healed(player: Player, heal: float, new_hp: float)
 signal player_levelup(player: Player)
@@ -13,17 +13,17 @@ const SPRITE_ROTATION_OFFSET := deg_to_rad(90)
 var selected_character: CharacterData
 var score: int = 0
 
-func boost_player(player: Player, amount_left: float) -> void:
+func ability_player(player: Player, amount_left: float) -> void:
     if not multiplayer.is_server():
         return
-    update_player_boost.rpc(player.get_path(), amount_left)
+    update_player_ability.rpc(player.get_path(), amount_left)
 
 @rpc("authority", "call_local", "unreliable")
-func update_player_boost(player_path: NodePath, amount_left: float) -> void:
+func update_player_ability(player_path: NodePath, amount_left: float) -> void:
     var player = get_node_or_null(player_path) as Player
     if player == null:
         return
-    player_boost.emit(player, amount_left)
+    player_use_ability.emit(player, amount_left)
 
 func damage_player(player: Player, damage: float) -> void:
     if not multiplayer.is_server():

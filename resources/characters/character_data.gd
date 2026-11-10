@@ -11,11 +11,11 @@ extends Resource
 
 @export_group("Stats")
 @export var max_hp: float = 100.0
-@export var max_boost: float = 100.0
+@export var max_ability: float = 100.0
 @export var armor: int = 5
-@export var boost_multiplier: float = 1.2
-@export var boost_recovery: float = 20.0
-@export var boost_drain: float = 35.0
+@export var ability_multiplier: float = 1.2
+@export var ability_recovery: float = 20.0
+@export var ability_drain: float = 35.0
 
 @export_group("Movement")
 @export var rotation_speed: float = 3.0
