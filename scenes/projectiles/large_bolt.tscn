@@ -3,8 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dko3qs58litj5" path="res://scenes/projectiles/base_projectile.tscn" id="1_base"]
 [ext_resource type="Texture2D" uid="uid://dg57bad0cheu1" path="res://assets/sprites/projectiles/projectile_bolt_large.png" id="2_texture"]
 
-[node name="ProjectileBolt2" unique_id=1924820276 instance=ExtResource("1_base")]
-collision_mask = 15
+[node name="LargeBolt" unique_id=1924820276 instance=ExtResource("1_base")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=604656692]
 texture = ExtResource("2_texture")
