@@ -7,7 +7,7 @@
 
 [node name="BaseProjectile" type="Area2D" unique_id=293832125]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 79
 script = ExtResource("1_y3aew")
 metadata/_custom_type_script = "uid://chw5n14gdpla0"
 

@@ -27,12 +27,12 @@ func _on_body_entered(body: Node2D) -> void:
     # enemy projectile hits another enemy
     if shooter_is_enemy and body.is_in_group("enemies"):
         return
-        
+    
     # player projectile hits another player
     if not shooter_is_enemy and body is Player:
         if body.get_multiplayer_authority() == shooter_peer_id:
             return
-            
+        
     if body is Enemy:
         if not shooter_is_enemy:
             body.take_damage(damage, shooter_peer_id)
@@ -45,11 +45,11 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
     if not multiplayer.is_server():
         return
-        
+
     if shooter_is_enemy and area.is_in_group("player_shields"):
         queue_free()
         return
-
+        
     if not area is Projectile:
         return
 
