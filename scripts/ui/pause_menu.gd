@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var exit_game_btn = %ExitGameButton
 
 const confirm_menu_scene: PackedScene = preload("res://scenes/menus/confirm_menu.tscn")
+const options_menu_scene: PackedScene = preload("res://scenes/menus/options_menu.tscn")
 
 func _on_continue_button_pressed() -> void:
     var world := get_tree().current_scene
@@ -19,7 +20,8 @@ func _on_continue_button_pressed() -> void:
     queue_free()
 
 func _on_options_button_pressed() -> void:
-    pass
+    var options = options_menu_scene.instantiate()
+    add_child(options)
 
 func _on_exit_game_button_pressed() -> void:
     var confirm = confirm_menu_scene.instantiate()
