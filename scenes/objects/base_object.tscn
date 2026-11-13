@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://calknllgl3wls"]
+
+[ext_resource type="Script" uid="uid://cs4f7vc8u7oho" path="res://scripts/objects/base_object.gd" id="1_qh8jo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwnof"]
+size = Vector2(20, 16.5)
+
+[node name="BaseObject" type="Area2D" unique_id=777475394]
+collision_layer = 128
+collision_mask = 10
+script = ExtResource("1_qh8jo")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=2054901014]
+polygon = PackedVector2Array(-19.61113, -20.17644, 20.38887, -20.17644, 20.38887, 19.823576, -19.61113, 19.823576)
+uv = PackedVector2Array(-64, -112.00001, -24, -112.00001, -24, -80.00001, -64, -80.00001)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1760792681]
+position = Vector2(0, -0.5)
+scale = Vector2(1.6400001, 2)
+shape = SubResource("RectangleShape2D_kwnof")

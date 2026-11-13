@@ -31,6 +31,10 @@ func _on_body_entered(body: Node2D) -> void:
         
     if not is_instance_valid(body):
         return
+
+    # enemy projectile hits wall
+    if shooter_is_enemy and body.is_in_group("wall"):
+        return
     
     # enemy projectile hits another enemy
     if shooter_is_enemy and body.is_in_group("enemies"):
@@ -53,7 +57,7 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
     if not multiplayer.is_server():
         return
-
+        
     if shooter_is_enemy and area.is_in_group("player_shields"):
         queue_free()
         return
