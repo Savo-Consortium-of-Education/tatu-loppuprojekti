@@ -36,7 +36,6 @@ enemies=""
 xp_orb=""
 projectiles=""
 wall=""
-objects=""
 
 [input]
 

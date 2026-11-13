@@ -33,6 +33,8 @@ sky_material = SubResource("PanoramaSkyMaterial_k0juu")
 [sub_resource type="Environment" id="Environment_kwnof"]
 background_mode = 3
 sky = SubResource("Sky_nnsk1")
+glow_enabled = true
+glow_bloom = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xo05s"]
 shader = ExtResource("6_o8fc1")

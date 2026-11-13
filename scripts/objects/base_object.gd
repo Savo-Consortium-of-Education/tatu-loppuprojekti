@@ -1,5 +1,7 @@
 class_name game_object extends Area2D
 
+@export var break_particles_scene: PackedScene
+
 @export_group("xp")
 @export var xp_orb_scene = preload("res://scenes/misc/xp_orb.tscn")
 @export var xp_chance: float = 0.1
@@ -37,11 +39,27 @@ func drop_xp() -> void:
     if xp_orb_spawner:
         xp_orb_spawner.spawn_xp_orb(xp_amount,global_position)
 
-func clear_object():
+func clear_object(area: Node2D):
+    spawn_break_particles(area)
     drop_xp()
     drop_powerup()
     queue_free()
     
+func spawn_break_particles(projectile: Projectile) -> void:
+    var particles = break_particles_scene.instantiate() as GPUParticles2D
+
+    get_tree().current_scene.add_child(particles)
+    particles.global_position = global_position
+
+    var opposite_direction = projectile.direction.normalized()
+    particles.process_material = particles.process_material.duplicate()
+    particles.process_material.direction = Vector3(
+        opposite_direction.x,
+        opposite_direction.y,
+        0.0
+    )
+    particles.emitting = true
+
 func _on_area_entered(area: Node2D) -> void:
     if not multiplayer.is_server():
         return
@@ -53,5 +71,5 @@ func _on_area_entered(area: Node2D) -> void:
     if area.shooter_is_enemy:
         return
     
-    clear_object()
+    clear_object(area)
     area.clear_projectile()
