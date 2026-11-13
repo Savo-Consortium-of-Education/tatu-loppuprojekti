@@ -33,7 +33,7 @@ func drop_powerup() -> void:
 func drop_xp() -> void:
     if randf() > xp_chance:
         return
-    var xp_amount = randi_range(xp_min, xp_max)
+    var xp_amount = randf_range(xp_min, xp_max)
     if xp_orb_spawner:
         xp_orb_spawner.spawn_xp_orb(xp_amount,global_position)
 
