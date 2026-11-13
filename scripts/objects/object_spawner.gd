@@ -9,6 +9,8 @@ extends MultiplayerSpawner
 @export var minimum_group_size: int = 2
 @export var maximum_group_size: int = 4
 @export var minimum_player_distance: float = 180.0
+@export var xp_orb_spawner: MultiplayerSpawner
+@export var powerup_spawner: MultiplayerSpawner
 
 @export_group("Arena")
 @export var arena_size := Vector2(1920.0, 1080.0)
@@ -48,6 +50,8 @@ func _spawn_object(data: Dictionary) -> Node:
         object.tree_exited.connect(
             func(): alive_objects.erase(object)
         )
+        object.xp_orb_spawner = xp_orb_spawner
+        object.powerup_spawner = powerup_spawner
 
     return object
 

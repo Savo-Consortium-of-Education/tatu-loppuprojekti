@@ -18,12 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://bwxbaqghk8ghd" path="res://scenes/enemies/destroyer.tscn" id="10_q5onr"]
 [ext_resource type="PackedScene" uid="uid://b5dr71h0b4eqi" path="res://scenes/enemies/watcher.tscn" id="11_jhx03"]
 [ext_resource type="PackedScene" uid="uid://xwdlcbdaejci" path="res://scenes/enemies/interceptor.tscn" id="12_o8fc1"]
-[ext_resource type="PackedScene" uid="uid://dcpmwu3uvmgbq" path="res://scenes/misc/xp_orb.tscn" id="19_pm21f"]
-[ext_resource type="PackedScene" path="res://scenes/objects/triangle.tscn" id="20_triangle"]
-[ext_resource type="PackedScene" path="res://scenes/objects/square.tscn" id="21_square"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pentagon.tscn" id="22_pentagon"]
-[ext_resource type="PackedScene" path="res://scenes/objects/wall.tscn" id="23_wall"]
-[ext_resource type="Script" path="res://scripts/objects/object_spawner.gd" id="24_object_spawner"]
+[ext_resource type="PackedScene" uid="uid://b5gktb6vgshdf" path="res://scenes/objects/triangle.tscn" id="20_triangle"]
+[ext_resource type="PackedScene" uid="uid://bl5fp3m1ew06v" path="res://scenes/objects/square.tscn" id="21_square"]
+[ext_resource type="PackedScene" uid="uid://dp3ptg2qwc3kd" path="res://scenes/objects/pentagon.tscn" id="22_pentagon"]
+[ext_resource type="PackedScene" uid="uid://bj2xs4hywoh4u" path="res://scenes/objects/wall.tscn" id="23_wall"]
+[ext_resource type="Script" uid="uid://ndd86rt31731" path="res://scripts/objects/object_spawner.gd" id="24_object_spawner"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_k0juu"]
 panorama = ExtResource("1_rwgxs")
@@ -169,20 +168,15 @@ script = ExtResource("5_7t5mc")
 spawn_path = NodePath("../PowerUps")
 script = ExtResource("6_lakw3")
 
-[node name="ObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=171130377]
+[node name="ObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=171130377 node_paths=PackedStringArray("xp_orb_spawner", "powerup_spawner")]
 spawn_path = NodePath("../Objects")
 script = ExtResource("24_object_spawner")
 object_scenes = Array[PackedScene]([ExtResource("20_triangle"), ExtResource("21_square"), ExtResource("22_pentagon")])
 wall_scene = ExtResource("23_wall")
-spawn_interval = 8.0
-maximum_objects = 20
-minimum_group_size = 2
-maximum_group_size = 4
-minimum_player_distance = 180.0
-arena_size = Vector2(1920, 1080)
-wall_thickness = 64.0
+xp_orb_spawner = NodePath("../XpOrbSpawner")
+powerup_spawner = NodePath("../PowerUpSpawner")
 
-[node name="SpawnTimer" type="Timer" parent="ObjectSpawner"]
+[node name="SpawnTimer" type="Timer" parent="ObjectSpawner" unique_id=318679365]
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1625680015]
 
@@ -269,7 +263,3 @@ spawn_distance = 700.0
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=74926261]
 
 [node name="DifficultyTimer" type="Timer" parent="EnemySpawner" unique_id=535142506]
-
-[node name="XpOrb" parent="." unique_id=1381425410 instance=ExtResource("19_pm21f")]
-position = Vector2(605, 335)
-xp_value = 300000000.0
