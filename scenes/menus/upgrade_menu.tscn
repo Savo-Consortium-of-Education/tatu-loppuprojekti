@@ -66,6 +66,7 @@ size_flags_vertical = 3
 
 [node name="CardContainer" type="GridContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/HFlowContainer/HBoxContainer" unique_id=780322472]
 layout_mode = 2
+unique_name_in_owner = true
 size_flags_horizontal = 3
 columns = 3
 
