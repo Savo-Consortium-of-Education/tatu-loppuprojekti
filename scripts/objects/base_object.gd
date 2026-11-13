@@ -7,7 +7,7 @@ class_name game_object extends Area2D
 @export var xp_max: float = 3.0
 
 @export_group("powerup")
-@export var powerup_chance: float = 0.5
+@export var powerup_chance: float = 0.05
 @export var powerup_pool: Array[PackedScene] = [
     preload("res://scenes/powerups/hp_powerup.tscn"),
     preload("res://scenes/powerups/ability_powerup.tscn")
@@ -54,3 +54,4 @@ func _on_area_entered(area: Node2D) -> void:
         return
     
     clear_object()
+    area.clear_projectile()

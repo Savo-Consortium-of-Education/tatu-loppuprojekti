@@ -13,6 +13,9 @@ func _ready() -> void:
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
 
+func clear_projectile() -> void:
+    queue_free()
+
 func _physics_process(delta: float) -> void:
     if not multiplayer.is_server():
         return
@@ -52,7 +55,7 @@ func _on_body_entered(body: Node2D) -> void:
         if shooter_is_enemy:
             body.take_damage(damage)
             
-    queue_free()
+    clear_projectile()
 
 func _on_area_entered(area: Area2D) -> void:
     if not multiplayer.is_server():
@@ -68,4 +71,4 @@ func _on_area_entered(area: Area2D) -> void:
     # player's projectile hits enemy's projectile
     if not shooter_is_enemy and area.shooter_is_enemy:
         area.queue_free()
-        queue_free()
+        clear_projectile()
