@@ -54,6 +54,7 @@ animations = [{
 }]
 
 [node name="Destroyer" unique_id=1292825599 instance=ExtResource("1_r8358")]
+death_particles_color = Color(0.1882353, 0, 0.62352943, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=485127028]
 scale = Vector2(0.3, 0.3)
@@ -62,4 +63,4 @@ autoplay = "default"
 frame_progress = 0.24942923
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1541145150]
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)

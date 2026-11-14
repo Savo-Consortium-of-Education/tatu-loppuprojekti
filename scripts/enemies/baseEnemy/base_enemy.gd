@@ -15,6 +15,10 @@ class_name Enemy extends CharacterBody2D
 @export var projectile_max_speed: float = 0.0
 @export var projectile_damage: float = 10.0
 
+@export_group("Death Particles")
+@export var death_particles_scene: PackedScene = preload("res://scenes/particles/object_break.tscn")
+@export var death_particles_color: Color = Color.WHITE
+
 @export_group("Powerup Drops")
 @export var drop_chance: float = 0.25
 @export var powerup_pool: Array[PackedScene] = [
@@ -36,7 +40,7 @@ func _ready() -> void:
     hp = max_hp
     play_default_animation()
     
-func die(attacker_peer_id: int) -> void:
+func die(attacker_peer_id: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
     if not multiplayer.is_server():
         return
         
@@ -53,9 +57,29 @@ func die(attacker_peer_id: int) -> void:
     if xp_orb_spawner:
         xp_orb_spawner.spawn_xp_orb(xp,global_position)
     
+    spawn_death_particles(hit_direction)
     drop_powerup()
     queue_free()
     
+func spawn_death_particles(hit_direction: Vector2 = Vector2.ZERO) -> void:
+    if death_particles_scene == null:
+        return
+        
+    var particles = death_particles_scene.instantiate() as GPUParticles2D
+    if particles == null:
+        return
+        
+    get_tree().current_scene.add_child(particles)
+    particles.global_position = global_position
+
+    var material = particles.process_material.duplicate() as ParticleProcessMaterial
+    particles.process_material = material
+    material.color = death_particles_color
+    if hit_direction != Vector2.ZERO:
+        var dir = hit_direction.normalized()
+        material.direction = Vector3(dir.x, dir.y, 0.0)
+    particles.emitting = true
+
 func drop_powerup() -> void:
     if not multiplayer.is_server():
         return
@@ -70,7 +94,7 @@ func drop_powerup() -> void:
         global_position
     )
     
-func take_damage(amount: float, attacker_peer_id: int) -> void:
+func take_damage(amount: float, attacker_peer_id: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
     if not multiplayer.is_server():
         return
     
@@ -81,7 +105,7 @@ func take_damage(amount: float, attacker_peer_id: int) -> void:
         amount
     )
     if(hp <= 0):
-        die(attacker_peer_id)
+        die(attacker_peer_id, hit_direction)
         
 func attack_player(player: Player) -> void:
     if not can_attack:
@@ -146,7 +170,7 @@ func shoot_at_player(player: Player) -> void:
         return
         
     can_attack = false
-    play_attack_animation()
+    await wait_for_attack_animation()
     var direction = global_position.direction_to(player.global_position)
     var projectile_path := ""
     if projectile_scene == null:
@@ -172,6 +196,17 @@ func shoot_at_player(player: Player) -> void:
     await get_tree().create_timer(attack_cooldown).timeout
     can_attack = true
     play_default_animation()
+
+func wait_for_attack_animation() -> void:
+    if animated_sprite == null or animated_sprite.sprite_frames == null:
+        return
+    if not animated_sprite.sprite_frames.has_animation(&"attack"):
+        return
+    if animated_sprite.sprite_frames.get_frame_count(&"attack") == 0:
+        return
+
+    play_attack_animation()
+    await get_tree().process_frame
 
 func play_attack_animation() -> void:
     if animated_sprite == null or animated_sprite.sprite_frames == null:
