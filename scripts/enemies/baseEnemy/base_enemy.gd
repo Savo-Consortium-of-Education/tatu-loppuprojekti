@@ -40,6 +40,17 @@ func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
     play_default_animation()
+
+func apply_difficulty_scaling(
+    hp_multiplier: float,
+    damage_multiplier: float,
+    speed_multiplier: float
+) -> void:
+    max_hp *= hp_multiplier
+    damage *= damage_multiplier
+    projectile_damage *= damage_multiplier
+    move_speed *= speed_multiplier
+    projectile_speed *= speed_multiplier
     
 func die(attacker_peer_id: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
     if not multiplayer.is_server():

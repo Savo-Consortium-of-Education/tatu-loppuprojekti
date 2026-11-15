@@ -4,6 +4,18 @@ extends Enemy
 @export var wave_projectile_damage: float = 12.0
 @export var projectile_distance: float = 120.0
 
+func apply_difficulty_scaling(
+    hp_multiplier: float,
+    damage_multiplier: float,
+    speed_multiplier: float
+) -> void:
+    super.apply_difficulty_scaling(
+        hp_multiplier,
+        damage_multiplier,
+        speed_multiplier
+    )
+    wave_projectile_damage *= damage_multiplier
+
 func _physics_process(_delta: float) -> void:
     if not multiplayer.is_server():
         return
