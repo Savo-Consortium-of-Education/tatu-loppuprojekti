@@ -108,28 +108,32 @@ func take_damage(amount: float, attacker_peer_id: int, hit_direction: Vector2 = 
         die(attacker_peer_id, hit_direction)
         
 func attack_player(player: Player) -> void:
-    if not can_attack:
+    if not can_attack or not is_valid_target(player):
         return
         
     can_attack = false
     play_attack_animation()
-    player.take_damage(damage)
+    if is_valid_target(player):
+        player.take_damage(damage)
+        
     await get_tree().create_timer(attack_cooldown).timeout
+    
     can_attack = true
     play_default_animation()
         
-func get_closest_player():
-    var all_players = get_tree().get_nodes_in_group("players")
-    var closest_player = null
+func get_closest_player() -> Player:
+    var closest_player: Player = null
+    var closest_dist_sq: float= INF
     
-    if all_players.size() > 0:
-        closest_player = all_players[0]
-        for player in all_players:
-            var distance_to_this_player = global_position.distance_squared_to(player.global_position)
-            var distance_to_closest_player = global_position.distance_squared_to(closest_player.global_position)
-            if (distance_to_this_player < distance_to_closest_player):
-                closest_player = player
-                
+    for node in get_tree().get_nodes_in_group("players"):
+        var player: Player = node as Player
+        if not is_valid_target(player):
+            continue
+        var dist_sq: float = global_position.distance_squared_to(player.global_position)
+        if dist_sq < closest_dist_sq:
+            closest_dist_sq = dist_sq
+            closest_player = player
+            
     return closest_player
     
 func _physics_process(delta: float) -> void:
@@ -137,10 +141,12 @@ func _physics_process(delta: float) -> void:
         return
         
     var closest_player = get_closest_player()
-    if closest_player == null:
+    if not is_valid_target(closest_player):
+        velocity = Vector2.ZERO
+        move_and_slide()
         return
         
-    var distance_to_player := global_position.distance_to(closest_player.global_position)
+    var distance_to_player: float = global_position.distance_to(closest_player.global_position)
     if shoot_projectiles and distance_to_player <= attack_distance:
         shoot_at_player(closest_player)
         if stop_moving_while_shooting:
@@ -151,12 +157,13 @@ func _physics_process(delta: float) -> void:
     move_towards_player(closest_player)
     
     for i in get_slide_collision_count():
-        var collision = get_slide_collision(i)
-        var body = collision.get_collider()
-        if body is Player:
+        var body = get_slide_collision(i).get_collider()
+        if body is Player and is_valid_target(body):
             attack_player(body)
   
 func move_towards_player(player: Player) -> void:
+    if player == null or player.is_dead:
+        return
     var direction = global_position.direction_to(
         player.global_position
     )
@@ -169,14 +176,22 @@ func shoot_at_player(player: Player) -> void:
     if not can_attack or projectile_spawner == null:
         return
         
+    if not is_valid_target(player):
+        return
+        
     can_attack = false
     await wait_for_attack_animation()
+    if not is_valid_target(player):
+        can_attack = true
+        play_default_animation()
+        return
+    
     var direction = global_position.direction_to(player.global_position)
     var projectile_path := ""
-    if projectile_scene == null:
-        push_error("Enemy projectile_scene is null; using the default bolt")
-    else:
+    if projectile_scene != null:
         projectile_path = projectile_scene.resource_path
+    else:
+        push_error("Enemy projectile_scene is null; using the default bolt")
         
     var projectile_data := {
         "position": global_position,
@@ -222,3 +237,12 @@ func play_default_animation() -> void:
         return
     if animated_sprite.sprite_frames.has_animation(&"default"):
         animated_sprite.play(&"default")
+
+func is_valid_target(player: Player) -> bool:
+    return (
+        player != null
+        and is_instance_valid(player)
+        and not player.is_queued_for_deletion()
+        and not player.is_dead
+        and player.is_in_group("players")
+    )
