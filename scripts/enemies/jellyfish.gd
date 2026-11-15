@@ -43,6 +43,7 @@ func _physics_process(delta: float) -> void:
     if velocity.is_zero_approx():
         restart_time_left = restart_delay
     move_and_slide()
+    _attack_nearby_players()
 
 func play_move_animation() -> void:
     if animated_sprite == null or animated_sprite.sprite_frames == null:

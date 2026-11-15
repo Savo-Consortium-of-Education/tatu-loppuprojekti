@@ -5,6 +5,7 @@ class_name Enemy extends CharacterBody2D
 @export var damage: float = 5.0
 @export var attack_cooldown: float = 1.0
 @export var attack_distance: float = 300.0
+@export var contact_damage_distance: float = 48.0
 @export var xp: float = 1
 
 @export_group("Projectile")
@@ -155,11 +156,18 @@ func _physics_process(delta: float) -> void:
             return
         
     move_towards_player(closest_player)
-    
-    for i in get_slide_collision_count():
-        var body = get_slide_collision(i).get_collider()
-        if body is Player and is_valid_target(body):
-            attack_player(body)
+
+    _attack_nearby_players()
+
+func _attack_nearby_players() -> void:
+    for node in get_tree().get_nodes_in_group("players"):
+        var player := node as Player
+        if (
+            is_valid_target(player)
+            and global_position.distance_to(player.global_position)
+            <= contact_damage_distance
+        ):
+            attack_player(player)
   
 func move_towards_player(player: Player) -> void:
     if player == null or player.is_dead:

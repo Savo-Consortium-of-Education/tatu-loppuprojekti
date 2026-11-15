@@ -12,6 +12,10 @@ shader_parameter/glow_color = Color(0.35, 1, 0.2, 1)
 shader_parameter/glow_strength = 1.0
 shader_parameter/glow_opacity = 0.0
 shader_parameter/glow_size = 2.0
+shader_parameter/outline_color = Color(0.7, 1, 0.2, 1)
+shader_parameter/outline_strength = 0.438000020805
+shader_parameter/outline_opacity = 0.5390000256025
+shader_parameter/outline_width = 1.2370000587575
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tnsml"]
 atlas = ExtResource("3_5k77s")
@@ -130,43 +134,21 @@ tracks/1/keys = {
 "points": PackedFloat32Array(2, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:scale:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:scale:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_kp3cm"]
 resource_name = "attack"
-length = 0.75
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.53333336, 1.1333333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(2.5, 2.5)]
+"values": [Vector2(0, 0), Vector2(3, 3), Vector2(4.5, 4.5), Vector2(5, 5)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -175,38 +157,17 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.75),
+"times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"finish_wave"
 }]
 }
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:scale:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.5, -0.125, -0.083333336, 0, 0),
-"times": PackedFloat32Array(0, 0.75)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:scale:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.5, -0.125, -0.083333336, 0, 0),
-"times": PackedFloat32Array(0, 0.75)
-}
 
 [sub_resource type="Animation" id="Animation_5k77s"]
 resource_name = "glow_pulse"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -214,7 +175,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/glow_opacit
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.800000038, 0.2000000095]
@@ -228,7 +189,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 2),
 "points": PackedFloat32Array(2.5, -0.25, 0, 0.25, 0, 1, -0.083333336, 0.25, 0, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 1)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -239,7 +200,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(2, 0),
 "points": PackedFloat32Array(3.5000002, 0, 0, 0.16666667, 0.75, 8, -0.083333336, -1, 0, 0),
-"times": PackedFloat32Array(0, 1)
+"times": PackedFloat32Array(0, 2)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gkivl"]
@@ -250,7 +211,7 @@ _data = {
 }
 
 [node name="Wave" type="Area2D" unique_id=192048907]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(4.688462, 4.688462)
 collision_layer = 8
 collision_mask = 79
 script = ExtResource("2_script")
