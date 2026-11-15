@@ -16,6 +16,7 @@ scale_max = 4.0
 color = Color(0.26666668, 0.7019608, 1, 1)
 
 [node name="BoltBreak" type="GPUParticles2D" unique_id=1284533704]
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
 emitting = false
 amount = 32
 sub_emitter = NodePath(".")
