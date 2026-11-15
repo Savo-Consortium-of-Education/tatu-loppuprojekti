@@ -1,11 +1,12 @@
 extends Node2D
 
-@onready var player_spawner: MultiplayerSpawner = $PlayerSpawner
 @onready var players_container: Node2D = $Players
-@onready var projectile_spawner: MultiplayerSpawner = $ProjectileSpawner
 @onready var timer: Timer = $Timer
 @onready var hud: CanvasLayer = $Hud
+@onready var projectile_spawner: MultiplayerSpawner = $ProjectileSpawner
+@onready var player_spawner: MultiplayerSpawner = $PlayerSpawner
 @onready var enemy_spawner = $EnemySpawner
+@onready var object_spawner = $ObjectSpawner
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player/player.tscn")
 const UPGRADE_MENU: PackedScene = preload("res://scenes/menus/upgrade_menu.tscn")
@@ -168,6 +169,7 @@ func pause_game() -> void:
     is_paused = true
     timer.stop()
     enemy_spawner.stop_spawning()
+    object_spawner.stop_spawning()
     set_game_paused.rpc(true)
 
 @rpc("any_peer", "call_remote", "reliable")
@@ -187,6 +189,7 @@ func continue_game() -> void:
     is_paused = false
     timer.start()
     enemy_spawner.start_spawning()
+    object_spawner.start_spawning()
     set_game_paused.rpc(false)
     
 @rpc("authority", "call_local", "reliable")
@@ -502,10 +505,7 @@ func request_join_game() -> void:
         print("player already exists")
         return
         
-    var spawned_player := player_spawner.spawn({
-        "peer_id": peer_id,
-        "character_path": Lobby.players[peer_id]["character_path"]
-    })
+    spawn_player(peer_id)
     
     # synchronize game state
     update_timer.rpc_id(peer_id, elapsed_time)

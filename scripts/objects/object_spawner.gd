@@ -112,3 +112,13 @@ func _remove_dead_objects() -> void:
     alive_objects = alive_objects.filter(
         func(object): return is_instance_valid(object)
     )
+
+func start_spawning() -> void:
+    if not multiplayer.is_server():
+        return
+    spawn_timer.start()
+
+func stop_spawning() -> void:
+    if not multiplayer.is_server():
+        return
+    spawn_timer.stop()
