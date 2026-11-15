@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var time_label: Label = %TimeLabel
 @onready var level_bar: TextureProgressBar = %Level
 @onready var level_label: Label = %LevelLabel
+@onready var xp_label: Label = %XPLabel
 @onready var score_label: Label = %Score
 @onready var coins_label: Label = %Coins
 
@@ -71,6 +72,7 @@ func update_xp(current_xp: float, xp_required: float, level: int) -> void:
     level_bar.max_value = xp_required
     level_bar.value = current_xp
     level_label.text = "Lv: %d" % level
+    xp_label.text = "%d / %d XP" % [current_xp, xp_required]
 
 func update_score(score: int) -> void:
     score_label.text = "Score: %d" % score
