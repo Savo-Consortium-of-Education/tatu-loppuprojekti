@@ -78,8 +78,7 @@ func _on_body_entered(body: Node2D) -> void:
     
     # player projectile hits another player
     if not shooter_is_enemy and body is Player:
-        if body.get_multiplayer_authority() == shooter_peer_id:
-            return
+        return
         
     if body is Enemy:
         if not shooter_is_enemy:

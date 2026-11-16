@@ -3,6 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cfqtf7vkf1ee4" path="res://scenes/enemies/baseEnemy/base_enemy.tscn" id="1_1247l"]
 [ext_resource type="Script" uid="uid://clk561llqilem" path="res://scripts/enemies/watcher.gd" id="2_5xvxm"]
 [ext_resource type="Texture2D" uid="uid://crbm7s1p88vxg" path="res://assets/sprites/enemies/enemy_watcher.png" id="2_1247l"]
+[ext_resource type="Shader" uid="uid://cry26bjwnm5ch" path="res://resources/shaders/hit_flash.gdshader" id="3_5acxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e12yk"]
+shader = ExtResource("3_5acxu")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_strength = 0.3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_02sjw"]
 atlas = ExtResource("2_1247l")
@@ -112,6 +119,7 @@ shoot_projectiles = true
 death_particles_color = Color(0.6, 0.7411765, 1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=563016582]
+material = SubResource("ShaderMaterial_e12yk")
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 animation = &"attack"

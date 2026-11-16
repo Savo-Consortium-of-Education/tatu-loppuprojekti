@@ -1,7 +1,7 @@
 class_name PowerUp
 extends Area2D
 
-const FLOATING_TEXT = preload("res://scenes/powerups/powerup_label.tscn")
+const FLOATING_TEXT = preload("res://scenes/misc/glow_label.tscn")
 const GLOW = preload("res://resources/shaders/sprite_glow.gdshader")
 
 @export var pickup_text := "+25 HP"

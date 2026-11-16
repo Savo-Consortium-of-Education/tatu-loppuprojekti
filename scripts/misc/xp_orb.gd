@@ -4,6 +4,9 @@ extends Area2D
 @export var xp_value: float = 5.0
 @export var attraction_radius: float = 100.0
 @export var attraction_speed: float = 250.0
+@export var pickup_color := Color("ffffffff")
+
+const FLOATING_TEXT = preload("res://scenes/misc/glow_label.tscn")
 
 var target: Player = null
 
@@ -73,4 +76,15 @@ func collect(player: Player) -> void:
     )
     
     player.gain_xp(xp_value)
+    show_pickup_notification(player)
     queue_free()
+
+func show_pickup_notification(player: Player) -> void:
+    var notification = FLOATING_TEXT.instantiate()
+    player.get_parent().add_child(notification)
+    notification.global_position = global_position
+    notification.show_text(
+        "+%s XP" % int(xp_value),
+        pickup_color,
+        notification.global_position + Vector2(0, -32)
+    )

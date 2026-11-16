@@ -4,6 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://c265v8m8wgopt" path="res://assets/sprites/enemies/enemy_interceptor.png" id="2_leyjb"]
 [ext_resource type="Script" uid="uid://behmmm7ojmifl" path="res://scripts/enemies/interceptor.gd" id="2_nqdo6"]
 [ext_resource type="PackedScene" uid="uid://quc17hjjergs" path="res://scenes/projectiles/rocket.tscn" id="2_yghn5"]
+[ext_resource type="Shader" uid="uid://cry26bjwnm5ch" path="res://resources/shaders/hit_flash.gdshader" id="4_nqdo6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x17u5"]
+shader = ExtResource("4_nqdo6")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nqdo6"]
 atlas = ExtResource("2_leyjb")
@@ -160,6 +166,7 @@ projectile_max_speed = 500.0
 death_particles_color = Color(1, 0.05490196, 0.050980393, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1654554168]
+material = SubResource("ShaderMaterial_x17u5")
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"

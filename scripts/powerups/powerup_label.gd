@@ -8,10 +8,7 @@ var glow_material: ShaderMaterial
 
 func _ready() -> void:
     glow_material = ShaderMaterial.new()
-    glow_material.shader = preload(
-        "res://resources/shaders/label_glow.gdshader"
-    )
-
+    glow_material.shader = preload("res://resources/shaders/label_glow.gdshader")
     glow_label.material = glow_material
     glow_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 

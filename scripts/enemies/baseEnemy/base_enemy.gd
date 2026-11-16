@@ -33,12 +33,15 @@ var projectile_spawner: MultiplayerSpawner
 var xp_orb_spawner: MultiplayerSpawner
 var hp: float = 999
 var can_attack = true
+var flash_id: int = 0
 
 @onready var animated_sprite := get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
 
 func _ready() -> void:
     add_to_group("enemies")
     hp = max_hp
+    if animated_sprite and animated_sprite.material:
+        animated_sprite.material = animated_sprite.material.duplicate()
     play_default_animation()
 
 func apply_difficulty_scaling(
@@ -111,6 +114,7 @@ func take_damage(amount: float, attacker_peer_id: int, hit_direction: Vector2 = 
         return
     
     hp -= amount
+    damage_feedback()
     SaveManager.add_run_stat(
         attacker_peer_id,
         SaveManager.Stat.DAMAGE_DEALT,
@@ -256,6 +260,18 @@ func play_default_animation() -> void:
         return
     if animated_sprite.sprite_frames.has_animation(&"default"):
         animated_sprite.play(&"default")
+
+func damage_feedback() -> void:
+    if animated_sprite == null or animated_sprite.material == null:
+        return
+        
+    flash_id += 1
+    var current_flash_id = flash_id
+    
+    animated_sprite.material.set_shader_parameter("active", true)
+    await get_tree().create_timer(0.1).timeout
+    if current_flash_id == flash_id and is_instance_valid(animated_sprite):
+        animated_sprite.material.set_shader_parameter("active", false)
 
 func is_valid_target(player: Player) -> bool:
     return (
