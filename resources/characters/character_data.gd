@@ -29,3 +29,5 @@ extends Resource
 
 @export_group("Ability")
 @export var abilities: Array[PackedScene] = []
+@export var ability_names: Array[String] = []
+@export var ability_descriptions: Array[String] = []

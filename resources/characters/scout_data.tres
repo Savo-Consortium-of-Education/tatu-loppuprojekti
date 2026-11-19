@@ -12,4 +12,6 @@ portrait = ExtResource("2_4s6xq")
 ship_texture = ExtResource("2_4s6xq")
 default_weapon = ExtResource("1_ng3kj")
 abilities = Array[PackedScene]([ExtResource("1_tng3p")])
+ability_names = Array[String](["Boost"])
+ability_descriptions = Array[String](["Hold to boost speed and maneuverability. Drains ability energy."])
 metadata/_custom_type_script = "uid://rrnb0rlitc3b"

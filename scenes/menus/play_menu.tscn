@@ -23,6 +23,13 @@ content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0.18431373, 0.27058825, 0.39607844, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvr8k"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18431373, 0.27058825, 0.39607844, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riqys"]
 content_margin_left = 8.0
 content_margin_top = 8.0
@@ -48,6 +55,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_3pot6")
 script = ExtResource("1_ixn57")
 character_registry = ExtResource("2_h37g1")
 
@@ -96,20 +104,151 @@ theme_override_font_sizes/font_size = 32
 text = "Select character"
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2" unique_id=889500595]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2" unique_id=1727968808]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=889500595]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="CharacterContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=361091227]
+[node name="CharacterContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/MarginContainer" unique_id=361091227]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/h_separation = 8
 last_wrap_alignment = 1
+
+[node name="StatsPanel" type="PanelContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=2037732033]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvr8k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel" unique_id=1933573740]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1000]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 32
+text = "CHARACTER STATS"
+horizontal_alignment = 1
+
+[node name="HPSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1006]
+layout_mode = 2
+
+[node name="SurvivabilitySection" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1007]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HPLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/SurvivabilitySection" unique_id=1001]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "HP: --"
+
+[node name="ArmorLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/SurvivabilitySection" unique_id=1003]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Armor: --"
+
+[node name="MobilitySeparator" type="HSeparator" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1008]
+layout_mode = 2
+
+[node name="MobilitySection" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1009]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SpeedLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/MobilitySection" unique_id=1002]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Speed: --"
+
+[node name="RotationLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/MobilitySection" unique_id=1010]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Rotation: --"
+
+[node name="WeaponSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1011]
+layout_mode = 2
+
+[node name="WeaponSection" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1012]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="DamageLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/WeaponSection" unique_id=1005]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Damage: --"
+
+[node name="DPSLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/WeaponSection" unique_id=1013]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "DPS: --"
+
+[node name="ProjectileLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/WeaponSection" unique_id=1014]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Projectiles: --"
+
+[node name="FireRateLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/WeaponSection" unique_id=1015]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Fire Rate: --"
+
+[node name="AbilitySeparator" type="HSeparator" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1016]
+layout_mode = 2
+
+[node name="AbilitySection" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer" unique_id=1017]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="AbilityLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/AbilitySection" unique_id=1004]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 24
+text = "Ability: --"
+
+[node name="AbilityEnergyLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/AbilitySection" unique_id=1028925318]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="AbilityDrainLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/AbilitySection" unique_id=822290837]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="AbilityDescLabel" type="Label" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer2/HBoxContainer/StatsPanel/VBoxContainer/AbilitySection" unique_id=1018]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3pot6")
+theme_override_font_sizes/font_size = 22
+text = "Ability description"
+autowrap_mode = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/HBoxContainer" unique_id=1911084613]
 layout_mode = 2
