@@ -35,6 +35,7 @@ shape = SubResource("CircleShape2D_kwnof")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1518567696]
 position_smoothing_enabled = true
+position_smoothing_speed = 12.0
 rotation_smoothing_enabled = true
 
 [node name="Visuals" type="Node2D" parent="." unique_id=197805212]
@@ -45,7 +46,6 @@ material = SubResource("ShaderMaterial_5acxu")
 
 [node name="SpeedTrail" parent="Visuals" unique_id=152685920 instance=ExtResource("2_dovo2")]
 scale = Vector2(2, 2)
-max_points = 120
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=184920485]
 replication_config = SubResource("SceneReplicationConfig_player")

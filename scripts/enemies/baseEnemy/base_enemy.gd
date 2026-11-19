@@ -27,6 +27,8 @@ class_name Enemy extends CharacterBody2D
     preload("res://scenes/powerups/ability_powerup.tscn")
 ]
 
+const glow_label_scene: PackedScene = preload("res://scenes/misc/glow_label.tscn")
+
 var stop_moving_while_shooting = true
 var powerup_spawner: PowerupSpawner
 var projectile_spawner: MultiplayerSpawner
@@ -86,14 +88,13 @@ func spawn_death_particles(hit_direction: Vector2 = Vector2.ZERO) -> void:
         
     get_tree().current_scene.add_child(particles)
     particles.global_position = global_position
-
-    var material = particles.process_material.duplicate() as ParticleProcessMaterial
-    particles.process_material = material
-    material.color = death_particles_color
     if hit_direction != Vector2.ZERO:
-        var dir = hit_direction.normalized()
-        material.direction = Vector3(dir.x, dir.y, 0.0)
+        particles.rotation = hit_direction.angle()
+    particles.modulate = death_particles_color
+    particles.one_shot = true
     particles.emitting = true
+
+    get_tree().create_timer(particles.lifetime + 0.1).timeout.connect(particles.queue_free)
 
 func drop_powerup() -> void:
     if not multiplayer.is_server():
@@ -114,7 +115,7 @@ func take_damage(amount: float, attacker_peer_id: int, hit_direction: Vector2 = 
         return
     
     hp -= amount
-    damage_feedback()
+    damage_feedback(amount)
     SaveManager.add_run_stat(
         attacker_peer_id,
         SaveManager.Stat.DAMAGE_DEALT,
@@ -223,7 +224,8 @@ func shoot_at_player(player: Player) -> void:
         "damage": projectile_damage,
         "projectile_path": projectile_path,
         "shooter_is_enemy": true,
-        "shooter_path": get_path()
+        "shooter_path": get_path(),
+        "lifetime": 4.0
     }
     if projectile_acceleration != 0.0:
         projectile_data["acceleration"] = projectile_acceleration
@@ -261,10 +263,21 @@ func play_default_animation() -> void:
     if animated_sprite.sprite_frames.has_animation(&"default"):
         animated_sprite.play(&"default")
 
-func damage_feedback() -> void:
+func damage_feedback(amount: float) -> void:
     if animated_sprite == null or animated_sprite.material == null:
         return
         
+    var glow_label = glow_label_scene.instantiate()
+    get_tree().current_scene.add_child(glow_label)
+    var spawn_pos = global_position + Vector2(0.0, -24.0)
+    var display = str(roundi(amount)) if fmod(amount, 1.0) == 0.0 else ("%.1f" % amount)
+    glow_label.show_text(
+        display,
+        Color(1.0, 0.218, 0.349, 1.0),
+        spawn_pos,
+        18
+    )
+    
     flash_id += 1
     var current_flash_id = flash_id
     

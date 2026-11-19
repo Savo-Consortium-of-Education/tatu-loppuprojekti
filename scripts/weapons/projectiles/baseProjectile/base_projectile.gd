@@ -13,6 +13,7 @@ class_name Projectile extends Area2D
 @export var damage: float = 10.0
 @export var shooter_peer_id: int = -1
 @export var shooter_is_enemy: bool = false
+@export var lifetime: float = 0.0
 
 var destroyed: bool = false
 
@@ -20,6 +21,8 @@ func _ready() -> void:
     add_to_group("projectiles")
     body_entered.connect(_on_body_entered)
     area_entered.connect(_on_area_entered)
+    if lifetime > 0.0:
+        get_tree().create_timer(lifetime).timeout.connect(func(): clear_projectile(false))
 
 func clear_projectile(spawn_particles: bool = true) -> void:
     if destroyed:
@@ -42,14 +45,11 @@ func spawn_break_particles() -> void:
     particles.global_position = global_position
     
     var return_direction = -direction.normalized()
-    var material = particles.process_material.duplicate() as ParticleProcessMaterial
-    particles.process_material = material
-    material.direction = Vector3(
-        return_direction.x,
-        return_direction.y,
-        0.0
-    )
+    particles.rotation = return_direction.angle()
+    particles.one_shot = true
     particles.emitting = true
+
+    get_tree().create_timer(particles.lifetime + 0.1).timeout.connect(particles.queue_free)
 
 func _physics_process(delta: float) -> void:
     apply_acceleration(delta)
@@ -70,6 +70,11 @@ func _on_body_entered(body: Node2D) -> void:
 
     # enemy projectile hits wall
     if shooter_is_enemy and body.is_in_group("wall"):
+        # enemy projectile enters the arena
+        var to_center = -global_position.normalized()
+        if direction.dot(to_center) > 0.0:
+            return
+        clear_projectile(true)
         return
     
     # enemy projectile hits another enemy

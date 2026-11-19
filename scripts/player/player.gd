@@ -1,5 +1,7 @@
 class_name Player extends Character
 
+@export var reference_resolution := Vector2(1920.0, 1080.0)
+
 @onready var visuals = $Visuals
 @onready var camera: Camera2D = $Camera2D
 
@@ -11,6 +13,10 @@ var angular_velocity: float = 0.0
 var current_xp: float = 0.0
 var xp_to_next_level: float = 10.0
 var is_dead: bool = false
+var zoom_min: float = 0.8
+var zoom_max: float = 1.5
+var zoom_speed: float = 0.1
+var base_zoom := Vector2.ONE
 var spectate_target: Player = null
 var is_spectating: bool = false
 var is_invulnerable: bool = false
@@ -38,7 +44,8 @@ func _ready() -> void:
         camera.enabled = is_multiplayer_authority()
         if camera.enabled:
             camera.make_current()
-    
+
+    base_zoom = camera.zoom
     add_to_group("players")
     
     if character_data == null:
@@ -121,8 +128,8 @@ func handle_movement(delta: float) -> void:
     var speed_multiplier := 1.0
     for ability in abilities:
         speed_multiplier *= ability.movement_multiplier()
+        
     var target_speed := max_speed * speed_multiplier
-
     var acceleration_force := acceleration * speed_multiplier
 
     if direction != Vector2.ZERO:
@@ -216,6 +223,12 @@ func _unhandled_input(event: InputEvent) -> void:
             spectate_next_alive_player()
         elif event.is_action_pressed("ability"):
             spectate_prev_alive_player()
+
+    if event is InputEventMouseButton:
+        if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+            zoom_camera(-zoom_speed)
+        elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+            zoom_camera(zoom_speed)
 
 func die() -> void:
     if is_dead:
@@ -355,3 +368,11 @@ func _update_ability(player: Player, amount: float) -> void:
     ability_energy = minf(ability_energy + amount, max_ability)
     GameManager.use_ability_player(self, ability_energy)
     
+
+func zoom_camera(amount: float) -> void:
+    var new_zoom := clampf(
+        camera.zoom.x + amount,
+        zoom_min,
+        zoom_max
+    )
+    camera.zoom = Vector2(new_zoom, new_zoom)
