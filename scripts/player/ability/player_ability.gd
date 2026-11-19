@@ -72,11 +72,12 @@ func spawn_activation_particles() -> void:
     particle_parent.add_child(activation_particles)
     activation_particles.position = activation_particles_offset
     activation_particles.emitting = true
-
-    get_tree().create_timer(activation_particles.lifetime + 0.1).timeout.connect(activation_particles.queue_free)
+    activation_particles.one_shot = false
 
 func stop_activation_particles() -> void:
     if activation_particles == null:
         return
-    activation_particles.queue_free()
+    activation_particles.emitting = false
+    activation_particles.one_shot = true
+    get_tree().create_timer(activation_particles.lifetime + 0.1).timeout.connect(activation_particles.queue_free)
     activation_particles = null
