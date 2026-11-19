@@ -4,6 +4,6 @@
 
 [node name="BaseSquare" instance=ExtResource("1_base")]
 
-[node name="Polygon2D" parent="." index="0"]
+[node name="Polygon2D" parent="SolidBody" index="0"]
 polygon = PackedVector2Array(-19.61113, -20.17644, 20.38887, -20.17644, 20.38887, 19.823576, -19.61113, 19.823576)
 uv = PackedVector2Array(-64, -112.00001, -24, -112.00001, -24, -80.00001, -64, -80.00001)

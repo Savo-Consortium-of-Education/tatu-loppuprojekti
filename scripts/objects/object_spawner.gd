@@ -41,6 +41,8 @@ func _spawn_object(data: Dictionary) -> Node:
 
     var object := scene.instantiate() as Node2D
     object.position = data["position"]
+    if data["kind"] == "object" and object.has_method("apply_color_seed"):
+        object.set_meta("color_seed", data.get("color_seed", 0))
     if data["kind"] == "wall":
         object.set("arena_size", data["arena_size"])
     object.add_to_group("objects")
@@ -52,6 +54,15 @@ func _spawn_object(data: Dictionary) -> Node:
         )
         object.xp_orb_spawner = xp_orb_spawner
         object.powerup_spawner = powerup_spawner
+        
+        var players := get_tree().get_nodes_in_group("players")
+        var spawn_velocity := Vector2.ZERO
+        for player in players:
+            if player is Node2D and is_instance_valid(player):
+                spawn_velocity = player.velocity
+                break
+        if object.has_method("_initialize_physics"):
+            object._initialize_physics(spawn_velocity)
 
     return object
 
@@ -70,15 +81,34 @@ func _on_spawn_timer_timeout() -> void:
     )
     var center := _random_position_away_from_players()
     for index in group_size:
-        var position := center + Vector2(
-            randf_range(-80.0, 80.0),
-            randf_range(-80.0, 80.0)
-        )
+        var position := _find_clear_spawn_position(center)
         spawn({
             "kind": "object",
             "scene_index": randi_range(0, object_scenes.size() - 1),
-            "position": position
+            "position": position,
+            "color_seed": randi()
         })
+
+func _find_clear_spawn_position(center: Vector2) -> Vector2:
+    var max_attempts := 20
+    var min_spacing := 60.0
+    
+    for attempt in max_attempts:
+        var position := center + Vector2(
+            randf_range(-120.0, 120.0),
+            randf_range(-120.0, 120.0)
+        )
+        
+        var is_clear := true
+        for obj in alive_objects:
+            if is_instance_valid(obj) and obj.global_position.distance_to(position) < min_spacing:
+                is_clear = false
+                break
+        
+        if is_clear:
+            return position
+    
+    return center
 
 func _spawn_boundary_walls() -> void:
     if wall_scene == null:
