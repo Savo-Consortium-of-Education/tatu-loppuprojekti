@@ -21,12 +21,6 @@ func die(attacker_peer_id: int, hit_direction: Vector2 = Vector2.ZERO) -> void:
     var explosion = explosion_scene.instantiate()
     get_tree().current_scene.add_child(explosion)
     explosion.global_position = global_position
-    
-    explosion.global_scale = global_scale * 0.25
-    var particle_material = explosion.process_material as ParticleProcessMaterial
-    particle_material.scale_min = 0.2
-    particle_material.scale_max = 0.75
-    
     explosion.restart()
     explosion.emitting = true
     get_tree().create_timer(explosion.lifetime + 0.1).timeout.connect(explosion.queue_free)
