@@ -37,7 +37,8 @@ func shoot_wave_at_player(player: Player) -> void:
         return
 
     can_attack = false
-    await wait_for_attack_animation()
+    play_attack_animation()
+    await get_tree().create_timer(0.35).timeout
     var projectile_path := wave_projectile_scene.resource_path
     var projectile_data := {
         "position": global_position,

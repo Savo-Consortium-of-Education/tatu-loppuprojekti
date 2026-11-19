@@ -10,6 +10,7 @@
 shader = ExtResource("4_ankfk")
 shader_parameter/active = false
 shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_strength = 0.3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhme6"]
 atlas = ExtResource("2_ahq63")

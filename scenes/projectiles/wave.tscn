@@ -2,9 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://d23vikmhab2so" path="res://resources/shaders/wave_glow.gdshader" id="2_5k77s"]
 [ext_resource type="Script" uid="uid://c4ckcbdf18qp" path="res://scripts/weapons/projectiles/wave_projectile.gd" id="2_script"]
-[ext_resource type="Texture2D" uid="uid://bjr2yt0gi6267" path="res://assets/free-pixel-effects/magic/magic-poison-48.png" id="3_5k77s"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jdxkx"]
+[ext_resource type="Texture2D" uid="uid://qw8yqeucun5i" path="res://assets/free-pixel-effects/rpg-maker/img/animations/fpe-explosion-toxic-64.png" id="3_5k77s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gkivl"]
 shader = ExtResource("2_5k77s")
@@ -12,62 +10,63 @@ shader_parameter/glow_color = Color(0.35, 1, 0.2, 1)
 shader_parameter/glow_strength = 1.0
 shader_parameter/glow_opacity = 0.0
 shader_parameter/glow_size = 2.0
-shader_parameter/outline_color = Color(0.7, 1, 0.2, 1)
-shader_parameter/outline_strength = 0.438000020805
-shader_parameter/outline_opacity = 0.5390000256025
-shader_parameter/outline_width = 1.2370000587575
+shader_parameter/inner_glow_strength = 0.050000002375
+shader_parameter/sheet_grid = Vector2(5, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k77s"]
+atlas = ExtResource("3_5k77s")
+region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tnsml"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(0, 0, 48, 48)
+region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mvji0"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(48, 0, 48, 48)
+region = Rect2(384, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3qb0n"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(96, 0, 48, 48)
+region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_otxul"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(144, 0, 48, 48)
+region = Rect2(768, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w4y0n"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(192, 0, 48, 48)
+region = Rect2(0, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j4jia"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(240, 0, 48, 48)
+region = Rect2(192, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdoqr"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(288, 0, 48, 48)
+region = Rect2(384, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ab1gi"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(336, 0, 48, 48)
+region = Rect2(576, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yypxw"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(384, 0, 48, 48)
+region = Rect2(768, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gfa6k"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(432, 0, 48, 48)
+region = Rect2(0, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c736r"]
 atlas = ExtResource("3_5k77s")
-region = Rect2(480, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8i7oi"]
-atlas = ExtResource("3_5k77s")
-region = Rect2(528, 0, 48, 48)
+region = Rect2(192, 384, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kwnof"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k77s")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tnsml")
 }, {
@@ -100,14 +99,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c736r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8i7oi")
 }],
 "loop": 0,
 "name": &"default",
-"speed": 11.0
+"speed": 12.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jdxkx"]
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_tnsml"]
 length = 0.001
@@ -137,7 +136,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_kp3cm"]
 resource_name = "attack"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -145,10 +143,10 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.53333336, 1.1333333, 2),
+"times": PackedFloat32Array(0, 0.33, 0.66, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(3, 3), Vector2(4.5, 4.5), Vector2(5, 5)]
+"values": [Vector2(0, 0), Vector2(0.64, 0.64), Vector2(0.94, 0.94), Vector2(0.94, 0.94)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -157,7 +155,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -211,22 +209,21 @@ _data = {
 }
 
 [node name="Wave" type="Area2D" unique_id=192048907]
-scale = Vector2(4.688462, 4.688462)
-collision_layer = 8
 collision_mask = 79
 script = ExtResource("2_script")
 metadata/_custom_type_script = "uid://chw5n14gdpla0"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1328337806]
-scale = Vector2(2.4, 2.4)
-shape = SubResource("CircleShape2D_jdxkx")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1632412011]
+texture_filter = 1
+texture_repeat = 1
 material = SubResource("ShaderMaterial_gkivl")
-scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_kwnof")
 autoplay = "default"
-frame = 7
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1328337806]
+scale = Vector2(20, 20)
+shape = SubResource("CircleShape2D_jdxkx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1828064938]
 libraries/ = SubResource("AnimationLibrary_gkivl")
