@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://jmpq6visqb1l" path="res://scripts/ui/join_menu.gd" id="1_lcbyc"]
 [ext_resource type="Theme" uid="uid://bxwqddg308rmc" path="res://resources/theme.tres" id="2_gvf75"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+bg_color = Color(0.08627451, 0.08627451, 0.08627451, 0.22745098)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4lx4"]
 bg_color = Color(0.13725491, 0.20784314, 0.30980393, 1)
 border_width_left = 4
@@ -15,11 +18,16 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
-bg_color = Color(0.08627451, 0.08627451, 0.08627451, 0.22745098)
-
 [node name="JoinMenu" type="CanvasLayer" unique_id=2006145467]
 script = ExtResource("1_lcbyc")
+
+[node name="bg" type="PanelContainer" parent="." unique_id=1419887226]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
 
 [node name="Control" type="Control" parent="." unique_id=627996604]
 layout_mode = 3
@@ -109,14 +117,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Connect"
-
-[node name="bg" type="PanelContainer" parent="." unique_id=1419887226]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
 
 [connection signal="pressed" from="Control/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer3/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer2/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2/ConnectButton" to="." method="_on_connect_button_pressed"]
