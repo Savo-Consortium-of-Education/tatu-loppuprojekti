@@ -29,7 +29,7 @@ You can play Asteroids either by downloading a pre-built release or running it d
 
 ## Web version
 **Note**: Some features may not work correctly in the web version. Multiplayer is not supported.
- - [Web Version](https://savo-consortium-of-education.github.io/tatu-loppuprojekti/)
+ - [Web Version](https://tatu16.github.io/loppuprojektipeli/)
 
 ## Download
 You can download either the latest stable release or a nightly build.
